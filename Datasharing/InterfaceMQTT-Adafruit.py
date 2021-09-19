@@ -59,7 +59,7 @@ ERRORS = []
 CMDQUEUE = []
 
 
-# exceptions
+# TODO fix exceptions
 class CustomException(Exception):
 	def __init__(self, name):
 		self.name = name
@@ -169,7 +169,9 @@ if __name__ == "__main__":
 					pass
 		# TODO status
 		# return Status
-		except ddisp_1:
+
+		# THIS IS A WORKAROUND (catch all exceptions)
+		except:
 			tries = 0
 			while not connection_flag and tries < 5:
 				client.reconnect()
