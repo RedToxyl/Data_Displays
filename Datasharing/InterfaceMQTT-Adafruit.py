@@ -86,7 +86,7 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_message(client, userdata, message):
-	CMDQUEUE.append(message)
+	CMDQUEUE.append(b'message')
 
 # dataclass for the bloc
 
@@ -139,11 +139,11 @@ if __name__ == "__main__":
 				# TODO gather updates
 				client.loop()
 				for x in CMDQUEUE:
-					if x.special:
+					if x.split(",")[0] == "special":
 						# do special stuff
 						pass
 					else:
-						# reassign faces
+						print(x.split(",")[1])
 						pass
 					# remove x from QUEUE
 				if SPECIAL:
