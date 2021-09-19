@@ -60,6 +60,21 @@ if mode == "mandata":
 	while True:
 		client.loop_start()
 		message = '"bloc"|{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "TIMEBLOC": "7:30-8:15"}'
+		input()
+		client.publish("Main/Data/A207", message, 1, retain=False)
+		client.loop_stop()
+
+		client.loop_start()
+		message = '"bloc"|{"TEACHER": "None", "SUBJECT": "Break", "CLASS": "None", "TIMEBLOC": "8:15-8:30"}'
+		input()
+		client.publish("Main/Data/A207", message, 1, retain=False)
+		client.loop_stop()
+
+		client.loop_start()
+		message = '"bloc"|{"TEACHER": "Schiemenz", "SUBJECT": "Mathe", "CLASS": "LK_1 12", "TIMEBLOC": "8:30-9:15"}'
+		input()
+		client.publish("Main/Data/A207", message, 1, retain=False)
+		client.loop_stop()
 
 
 
