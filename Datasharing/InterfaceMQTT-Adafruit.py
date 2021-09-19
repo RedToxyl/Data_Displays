@@ -83,7 +83,9 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_message(client, userdata, message):
-	CMDQUEUE.append(b'message')
+	CMDQUEUE.append(message)
+	print(message)
+	print(b'message')
 
 # dataclass for the bloc
 
