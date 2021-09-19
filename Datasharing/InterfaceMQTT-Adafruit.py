@@ -97,10 +97,12 @@ def on_disconnect(client, userdata, rc):
 def on_message(client, userdata, message):
 	if message.payload.decode('utf-8').split("|")[0] == "bloc":
 		blocinfo = dict(message.payload.decode('utf-8').split("|")[1])
+		print(blocinfo)
 		while True:
 			CURRENT = NEXT
 			# TODO add try except here:
 			NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime="BLOCTIME")
+			print(NEXT)
 
 
 # dataclass for the bloc

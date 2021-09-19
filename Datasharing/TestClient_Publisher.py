@@ -39,7 +39,7 @@ client.connect("192.168.178.45", 1883, 60)
 
 mode = 0
 while mode not in ["data", "manual", "mandata"]:
-	mode = input("Please enter mode. data, manual, mandata")
+	mode = input("Please enter mode. data, manual, mandata:    ")
 
 if mode == "manual":
 	while True:
