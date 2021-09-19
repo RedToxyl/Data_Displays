@@ -99,13 +99,13 @@ def on_message(client, userdata, message):
 		blocinfo = dict(message.payload.decode('utf-8').split("|")[1])
 		while True:
 			CURRENT = NEXT
-			NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime="wasted")
+			NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime="BLOCTIME")
 
 
 # dataclass for the bloc
 
 class Bloc:
-	def __init__(self, teacher=None, subject=None, clss=None, room=ROOM, bloctime=None):
+	def __init__(self, teacher=None, subject=None, clss=None, room=None, bloctime=None):
 		self.teacher = teacher
 		self.subject = subject
 		self.clss = clss
