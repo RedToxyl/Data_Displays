@@ -164,10 +164,10 @@ if __name__ == "__main__":
 					# draw special
 					pass
 				else:
-					print(f"Now:    {CURRENT}")
-					time.sleep(3)
-					print(f"Next:    {NEXT}")
-					time.sleep(3)
+					# print(f"Now:    {CURRENT}")
+					# time.sleep(3)
+					# print(f"Next:    {NEXT}")
+					# time.sleep(3)
 					# TODO drawing
 					# draw face 1
 					# wait 5
