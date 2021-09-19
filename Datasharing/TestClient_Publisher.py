@@ -41,7 +41,7 @@ while True:
 	client.loop_start()
 	# message = input("Enter message:    ")
 	# client.publish("News/", message, 1, retain=False)
-	message = '["bloc",{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}]'
+	message = '"bloc"|{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}'
 	client.publish("Main/Data/A207", message, 1, retain=False)
 	client.loop_stop()
 	time.sleep(10)

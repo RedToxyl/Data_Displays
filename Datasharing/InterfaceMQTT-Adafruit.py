@@ -94,7 +94,6 @@ def on_disconnect(client, userdata, rc):
 
 def on_message(client, userdata, message):
 	CMDQUEUE.append(message.payload.decode('utf-8'))
-	print(message.payload.decode('utf-8'))
 
 
 # dataclass for the bloc
@@ -150,12 +149,11 @@ if __name__ == "__main__":
 				client.loop()
 				print(CMDQUEUE)
 				for x in CMDQUEUE:
-					if x.split(",")[0] == "special":
+					if x.split("|")[0] == "special":
 						# do special stuff
 						pass
 					else:
-						print(x.split(",")[1])
-						print("oi")
+						print(x.split("|")[1])
 						pass
 				# remove x from QUEUE
 				if SPECIAL:
