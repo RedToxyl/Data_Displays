@@ -99,6 +99,7 @@ def on_message(client, userdata, message):
 		blocinfo = dict(message.payload.decode('utf-8').split("|")[1])
 		while True:
 			CURRENT = NEXT
+			# TODO add try except here:
 			NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime="BLOCTIME")
 
 
