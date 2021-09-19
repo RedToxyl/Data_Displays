@@ -58,8 +58,8 @@ ERRORS = []
 CMDQUEUE = []
 
 # exceptions
-ddisp_1 = "conniss"  # connection issue
-ddisp_2 = "subiss"  # subscription issue
+ddisp_1 = Exception("conniss")  # connection issue
+ddisp_2 = Exception("subiss")  # subscription issue
 
 
 # Callback functions
