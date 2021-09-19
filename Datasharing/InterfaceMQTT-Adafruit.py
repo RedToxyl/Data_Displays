@@ -95,9 +95,8 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_message(client, userdata, message):
-	print(message.payload.decode('utf-8').split("|")[0])
 	if message.payload.decode('utf-8').split("|")[0] == '"bloc"':
-		print("ahlaaa")
+		print(message.payload.decode('utf-8').split("|")[1])
 		blocinfo = dict(message.payload.decode('utf-8').split("|")[1])
 		print(blocinfo)
 		while True:
