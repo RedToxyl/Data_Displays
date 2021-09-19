@@ -23,7 +23,7 @@ def on_disconnect(self, userdata, rc):
 
 def makelog():
 	global logid
-	logid = f"/Users/thomaswolf/Desktop/Seminararbeit/Seminarcode/Datasharing/Mosquitto_Logs/{datetime.datetime.now().strftime('Log_%Y-%m-%d--%H-%M-%S')}.txt"
+	logid = f"/Users/thomaswolf/Desktop/Seminararbeit/Data_Displays/Datasharing/Mosquitto_Logs/{datetime.datetime.now().strftime('Log_%Y-%m-%d--%H-%M-%S')}.txt"
 	print(logid)
 
 makelog()
