@@ -37,6 +37,33 @@ client.connect("192.168.178.45", 1883, 60)
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
 
+mode = 0
+while mode not in ["data", "manual", "mandata"]:
+	mode = input("Please enter mode. data, manual, mandata")
+
+if mode == "manual":
+	while True:
+		client.loop_start()
+		message = input("Enter message:    ")
+		client.publish("News/", message, 1, retain=False)
+		client.loop_stop()
+
+if mode == "data":
+	while True:
+		client.loop_start()
+		message = '"bloc"|{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}'
+		client.publish("Main/Data/A207", message, 1, retain=False)
+		client.loop_stop()
+		time.sleep(10)
+
+if mode == "mandata":
+	while True:
+		client.loop_start()
+		message = '"bloc"|{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "TIMEBLOC": "7:30-8:15"}'
+
+
+
+
 while True:
 	client.loop_start()
 	# message = input("Enter message:    ")
@@ -45,3 +72,4 @@ while True:
 	client.publish("Main/Data/A207", message, 1, retain=False)
 	client.loop_stop()
 	time.sleep(10)
+
