@@ -100,8 +100,7 @@ def on_message(client, userdata, message):
 		global NEXT, CURRENT
 		CURRENT = NEXT
 		# TODO add try except here:
-		NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime="BLOCTIME")
-		print(f"Next:	{NEXT}")
+		NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime="BLOCTIME", room="ROOM")
 
 
 # dataclass for the bloc
@@ -162,10 +161,10 @@ if __name__ == "__main__":
 					# draw special
 					pass
 				else:
-					# print(f"Now:    {CURRENT}")
-					# time.sleep(3)
-					# print(f"Next:    {NEXT}")
-					# time.sleep(3)
+					print(f"Now:    {CURRENT}")
+					time.sleep(3)
+					print(f"Next:    {NEXT}")
+					time.sleep(3)
 					# TODO drawing
 					# draw face 1
 					# wait 5
