@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import time
 
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -40,6 +41,7 @@ while True:
 	client.loop_start()
 	# message = input("Enter message:    ")
 	# client.publish("News/", message, 1, retain=False)
-	message = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}'
+	message = '["bloc",{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}]'
 	client.publish("Main/Data/A207", message, 1, retain=False)
 	client.loop_stop()
+	time.sleep(10)

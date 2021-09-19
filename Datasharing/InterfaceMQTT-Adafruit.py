@@ -47,9 +47,6 @@ def getmac():
 
 	return mac
 
-
-print("GitTest")
-
 # definitions
 MAC = getmac()
 ROOM = "A207"  # different for all clients
