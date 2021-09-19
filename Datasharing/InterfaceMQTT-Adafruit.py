@@ -57,6 +57,8 @@ COMMON_EXCEPTIONS = ()
 SPECIAL = []
 ERRORS = []
 CMDQUEUE = []
+CURRENT = None
+NEXT = None
 
 
 # TODO fix exceptions
@@ -93,21 +95,26 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_message(client, userdata, message):
-	CMDQUEUE.append(message.payload.decode('utf-8'))
+	if message.payload.decode('utf-8').split("|")[0] == "bloc":
+		blocinfo = dict(message.payload.decode('utf-8').split("|")[1])
+		while True:
+			CURRENT = NEXT
+			# TODO add try except here:
+			NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime="BLOCTIME")
 
 
 # dataclass for the bloc
 
 class Bloc:
-	def __init__(self, teacher=None, subject=None, clss=None, room=ROOM, time=None):
+	def __init__(self, teacher=None, subject=None, clss=None, room=None, bloctime=None):
 		self.teacher = teacher
 		self.subject = subject
 		self.clss = clss
 		self.room = room
-		self.time = time
+		self.bloctime = bloctime
 
 	def __repr__(self):
-		return f"{self.teacher}, {self.subject}, {self.clss}, {self.room}, {self.time}"
+		return f"{self.teacher}, {self.subject}, {self.clss}, {self.room}, {self.bloctime}"
 
 
 if __name__ == "__main__":
@@ -147,20 +154,16 @@ if __name__ == "__main__":
 			while True:
 				# TODO gather updates
 				client.loop()
-				print(CMDQUEUE)
-				for x in CMDQUEUE:
-					if x.split("|")[0] == "special":
-						# do special stuff
-						pass
-					else:
-						print(x.split("|")[1])
-						pass
+
 				# remove x from QUEUE
 				if SPECIAL:
 					# TODO special handling
 					# draw special
 					pass
 				else:
+					print(f"Now:    {CURRENT}")
+					time.sleep(5)
+					print(f"Next:    {NEXT}")
 					# TODO drawing
 					# draw face 1
 					# wait 5
