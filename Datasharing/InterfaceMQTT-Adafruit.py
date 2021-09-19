@@ -96,7 +96,7 @@ def on_disconnect(client, userdata, rc):
 
 def on_message(client, userdata, message):
 	print(message.payload.decode('utf-8').split("|")[0])
-	if message.payload.decode('utf-8').split("|")[0] == "bloc":
+	if message.payload.decode('utf-8').split("|")[0] == '"bloc"':
 		print("ahlaaa")
 		blocinfo = dict(message.payload.decode('utf-8').split("|")[1])
 		print(blocinfo)
@@ -166,8 +166,9 @@ if __name__ == "__main__":
 					pass
 				else:
 					print(f"Now:    {CURRENT}")
-					time.sleep(5)
+					time.sleep(3)
 					print(f"Next:    {NEXT}")
+					time.sleep(3)
 					# TODO drawing
 					# draw face 1
 					# wait 5
