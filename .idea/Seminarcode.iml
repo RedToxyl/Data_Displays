@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Start_Publisher.app" />
       <excludeFolder url="file://$MODULE_DIR$/Start_Subscriber.app" />
       <excludeFolder url="file://$MODULE_DIR$/Stop_Mosquitto.app" />
+      <excludeFolder url="file://$MODULE_DIR$/Helpfuls" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
