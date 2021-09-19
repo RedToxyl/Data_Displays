@@ -47,6 +47,7 @@ def getmac():
 
 	return mac
 
+
 # definitions
 MAC = getmac()
 ROOM = "A207"  # different for all clients
@@ -57,9 +58,18 @@ SPECIAL = []
 ERRORS = []
 CMDQUEUE = []
 
+
 # exceptions
-ddisp_1 = Exception("conniss")  # connection issue
-ddisp_2 = Exception("subiss")  # subscription issue
+class CustomException(Exception):
+	def __init__(self, name):
+		self.name = name
+
+	def __repr__(self):
+		return self.name
+
+
+ddisp_1 = CustomException("conniss")  # connection issue
+ddisp_2 = CustomException("subiss")  # subscription issue
 
 
 # Callback functions
@@ -86,6 +96,7 @@ def on_message(client, userdata, message):
 	CMDQUEUE.append(message)
 	print(message)
 	print(b'message')
+
 
 # dataclass for the bloc
 
@@ -145,7 +156,7 @@ if __name__ == "__main__":
 					else:
 						print(x.split(",")[1])
 						pass
-					# remove x from QUEUE
+				# remove x from QUEUE
 				if SPECIAL:
 					# TODO special handling
 					# draw special
