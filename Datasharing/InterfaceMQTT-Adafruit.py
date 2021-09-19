@@ -145,6 +145,7 @@ if __name__ == "__main__":
 					else:
 						# reassign faces
 						pass
+					# remove x from QUEUE
 				if SPECIAL:
 					# TODO special handling
 					# draw special
