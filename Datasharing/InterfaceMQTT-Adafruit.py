@@ -109,6 +109,7 @@ if __name__ == "__main__":
 	# the various callback functions are assigned to the client
 	client.on_connect = on_connect
 	client.on_disconnect = on_disconnect
+	client.on_message = on_message
 
 	# client tries to connect to the broker
 	try:
