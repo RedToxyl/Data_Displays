@@ -84,6 +84,10 @@ def on_disconnect(client, userdata, rc):
 		print(f"ERROR: Unexpected Connection Loss, rc='{rc}'")
 		raise ddisp_1
 
+
+def on_message(client, userdata, message):
+	CMDQUEUE.append(message)
+
 # dataclass for the bloc
 
 class Bloc:
