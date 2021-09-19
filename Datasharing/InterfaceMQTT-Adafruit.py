@@ -97,8 +97,10 @@ def on_disconnect(client, userdata, rc):
 def on_message(client, userdata, message):
 	if message.payload.decode('utf-8').split("|")[0] == '"bloc"':
 		print(message.payload.decode('utf-8').split("|")[1])
+		print("a")
 		blocinfo = dict(message.payload.decode('utf-8').split("|")[1])
 		print(blocinfo)
+		print("b")
 		while True:
 			CURRENT = NEXT
 			# TODO add try except here:
