@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/(Re)Start_Mosquitto.app" />
+      <excludeFolder url="file://$MODULE_DIR$/Start_Publisher.app" />
+      <excludeFolder url="file://$MODULE_DIR$/Start_Subscriber.app" />
+      <excludeFolder url="file://$MODULE_DIR$/Stop_Mosquitto.app" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
