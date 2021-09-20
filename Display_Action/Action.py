@@ -25,8 +25,8 @@ font = ImageFont.load_default()
 while True:
 	if input() == "del":
 		draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)
-	draw.text((int(input("a: ")), int(input("b: "))), "9A - Englisch", 255, font)
-	draw.text((WIDTH / 2, HEIGHT / 2), "Grabow", 255, font)
+	draw.text((3, 3), "9A - Englisch", 255, font)
+	draw.text((int(input()), int(input())), "Grabow", 255, font)
 
 	disp.image(img)
 	disp.display()
