@@ -23,7 +23,7 @@ draw = ImageDraw.Draw(img)
 font = ImageFont.load_default()
 
 while True:
-	draw.text((input("a"), input("b")), "9A - Englisch", 255, font)
+	draw.text((int(input("a: ")), int(input("b: "))), "9A - Englisch", 255, font)
 	draw.text((WIDTH / 2, HEIGHT / 2), "Grabow", 255, font)
 
 	disp.image(img)
