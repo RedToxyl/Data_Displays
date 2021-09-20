@@ -173,7 +173,7 @@ if __name__ == "__main__":
 		# other
 		try:
 			while True:
-				client.loop()  # checks for new messages
+				client.loop(timeout=2)  # checks for new messages
 			# the following regulates with things are printed (displayed)
 				specials.sort(key=lambda special: special.priority),  # the list of all special messages gets sorted by priority
 				if specials:
