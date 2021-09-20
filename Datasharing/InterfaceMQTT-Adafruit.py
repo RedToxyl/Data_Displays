@@ -61,17 +61,18 @@ CURRENT = None
 NEXT = None
 
 
-# TODO fix exceptions
-class CustomException(Exception):
-	def __init__(self, name):
-		self.name = name
+class ddispException(Exception):
+	def __init__(self, *args):
+		if args:
+			self.message = args[0]
+		else:
+			self.message = None
 
 	def __repr__(self):
-		return self.name
-
-
-ddisp_1 = CustomException("conniss")  # connection issue
-ddisp_2 = CustomException("subiss")  # subscription issue
+		if self.message:
+			return self.message
+		else:
+			return "An unknown ddispException has occured."
 
 
 # Callback functions
@@ -82,8 +83,7 @@ def on_connect(client, userdata, flags, rc, properties=None):
 		global connection_flag
 		connection_flag = True
 	else:
-		print("connection failed")
-		raise ddisp_1
+		raise ddispException(f"The connection has failed. rc= {rc}")
 
 
 def on_disconnect(client, userdata, rc):
@@ -91,7 +91,7 @@ def on_disconnect(client, userdata, rc):
 		print("disconnect successful")
 	else:
 		print(f"ERROR: Unexpected Connection Loss, rc='{rc}'")
-		raise ddisp_1
+		raise ddispException(f"Sudden Disconnect. rc= {rc}")
 
 
 def on_message(client, userdata, message):
@@ -176,8 +176,7 @@ if __name__ == "__main__":
 		# TODO status
 		# return Status
 
-		# TODO THIS IS A WORKAROUND (catch all exceptions)
-		except BufferError:
+		except ddispException:
 			tries = 0
 			while not connection_flag and tries < 5:
 				client.reconnect()
