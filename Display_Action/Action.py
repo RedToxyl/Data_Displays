@@ -7,7 +7,7 @@ from PIL import ImageFont
 # Definitions
 WIDTH = 128
 HEIGHT = 64
-PADDING = -2
+PADDING = -5
 TOP = PADDING
 BOTTOM = HEIGHT - PADDING
 
@@ -28,7 +28,7 @@ font = ImageFont.load_default()
 
 while True:
 	draw.text((PADDING, PADDING), "9A - Englisch", 255, font)
-	draw.text((WIDTH / 2, HEIGHT / -2), "Grabow", 255, font)
+	draw.text((WIDTH / 2, HEIGHT / 22), "Grabow", 255, font)
 
 	disp.image(img)
 	disp.display()
