@@ -180,7 +180,7 @@ if __name__ == "__main__":
 		# return Status
 
 		# TODO THIS IS A WORKAROUND (catch all exceptions)
-		except:
+		except BufferError:
 			tries = 0
 			while not connection_flag and tries < 5:
 				client.reconnect()
