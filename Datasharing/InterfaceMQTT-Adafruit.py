@@ -93,11 +93,10 @@ def on_disconnect(client, userdata, rc):
 		print(f"ERROR: Unexpected Connection Loss, rc='{rc}'")
 		raise ddisp_1
 
-# TODO determine message type by topic it's recieved in, not by leading "bloc"/"special"
 
 def on_message(client, userdata, message):
-	if message.payload.decode('utf-8').split("|")[0] == '"bloc"':
-		blocinfo = ast.literal_eval(message.payload.decode('utf-8').split("|")[1])
+	if message.topic.decode('utf-8').split("/")[1] == "Data":
+		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		global NEXT, CURRENT
 		CURRENT = NEXT
 		# TODO add try except here:
@@ -113,6 +112,11 @@ class Bloc:
 		self.clss = clss
 		self.room = room
 		self.bloctime = bloctime
+
+		if subject == "BREAK":
+			self.recess = True
+		else:
+			self.recess = False
 
 	def __repr__(self):
 		return f"{self.teacher}, {self.subject}, {self.clss}, {self.room}, {self.bloctime}"

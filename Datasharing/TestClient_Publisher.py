@@ -51,7 +51,7 @@ if mode == "manual":
 if mode == "data":
 	while True:
 		client.loop_start()
-		message = '"bloc"|{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}'
+		message = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}'
 		client.publish("Main/Data/A207", message, 1, retain=False)
 		client.loop_stop()
 		time.sleep(10)
@@ -59,19 +59,19 @@ if mode == "data":
 if mode == "mandata":
 	while True:
 		client.loop_start()
-		message = '"bloc"|{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "TIMEBLOC": "7:30-8:15", "ROOM": "207"}'
+		message = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "TIMEBLOC": "7:30-8:15", "ROOM": "207"}'
 		input()
 		client.publish("Main/Data/A207", message, 1, retain=False)
 		client.loop_stop()
 
 		client.loop_start()
-		message = '"bloc"|{"TEACHER": "None", "SUBJECT": "Break", "CLASS": "None", "TIMEBLOC": "8:15-8:30", "ROOM": "None"}'
+		message = '{"TEACHER": "None", "SUBJECT": "BREAK", "CLASS": "None", "TIMEBLOC": "8:15-8:30", "ROOM": "None"}'
 		input()
 		client.publish("Main/Data/A207", message, 1, retain=False)
 		client.loop_stop()
 
 		client.loop_start()
-		message = '"bloc"|{"TEACHER": "Schiemenz", "SUBJECT": "Mathe", "CLASS": "LK_1 12", "TIMEBLOC": "8:30-9:15", "ROOM": "207"}'
+		message = '{"TEACHER": "Schiemenz", "SUBJECT": "Mathe", "CLASS": "LK_1 12", "TIMEBLOC": "8:30-9:15", "ROOM": "207"}'
 		input()
 		client.publish("Main/Data/A207", message, 1, retain=False)
 		client.loop_stop()
@@ -83,7 +83,7 @@ while True:
 	client.loop_start()
 	# message = input("Enter message:    ")
 	# client.publish("News/", message, 1, retain=False)
-	message = '"bloc"|{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}'
+	message = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}'
 	client.publish("Main/Data/A207", message, 1, retain=False)
 	client.loop_stop()
 	time.sleep(10)
