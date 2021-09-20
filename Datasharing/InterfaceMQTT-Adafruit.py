@@ -99,11 +99,8 @@ def on_message(client, userdata, message):
 		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		global NEXT, CURRENT
 		CURRENT = NEXT
-		print(blocinfo)
-		print(type(blocinfo))
 		# TODO add try except here:
 		NEXT = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'], room=blocinfo['ROOM'])
-		print(NEXT)
 
 
 # dataclass for the bloc
@@ -169,8 +166,8 @@ if __name__ == "__main__":
 					# draw special
 					pass
 				else:
-					# print(f"Now:    {CURRENT}")
-					# print(f"Next:    {NEXT}")
+					print(f"Now:    {CURRENT}")
+					print(f"Next:    {NEXT}")
 					# TODO drawing
 					# draw face 1
 					# wait 5
