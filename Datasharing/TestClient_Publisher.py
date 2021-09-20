@@ -84,13 +84,13 @@ if mode == "s":
 		client.loop_stop()
 
 		client.loop_start()
-		message = '{"NUMBER": "2", "PRIORITY": "0", "TEXT": "Hello World"}'
+		message = '{"NUMBER": "2", "PRIORITY": "0", "TEXT": "Hello World", "IMAGE": None}'
 		input()
 		client.publish("Main/Special/A207", message, 1, retain=False)
 		client.loop_stop()
 
 		client.loop_start()
-		message = '{"NUMBER": "3", "PRIORITY": "1", "TEXT": "prio1"}'
+		message = '{"NUMBER": "3", "PRIORITY": "1", "TEXT": "prio1", "IMAGE": None}'
 		input()
 		client.publish("Main/Special/A207", message, 1, retain=False)
 		client.loop_stop()

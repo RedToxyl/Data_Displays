@@ -94,10 +94,12 @@ def on_message(client, userdata, message):
 		now = after
 		# TODO add try except here:
 		after = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'])
+
 	elif message.topic.split("/")[1] == "Special":
 		specinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		# TODO add try except here
 		specials.append(Special(number=specinfo['NUMBER'], priority=specinfo['PRIORITY'], text=specinfo['TEXT'], img=specinfo['IMAGE']))
+
 	elif message.topic.split("/")[1] == "Cancel":
 		cancelled = int(message.payload.decode('utf-8'))
 		for special in specials:
@@ -132,7 +134,7 @@ class Special:
 		self.priority = priority
 
 	def __repr__(self):
-		return f"id: {self.number}, prio: {self.priority}\n{self.text}\n{len(self.img)}"
+		return f"id: {self.number}, prio: {self.priority}\n{self.text}"
 
 
 if __name__ == "__main__":
@@ -176,10 +178,13 @@ if __name__ == "__main__":
 				specials.sort(key=lambda special: special.priority, reverse=True)  # the list of all special messages gets sorted by priority
 				print(specials)
 				if specials:
+
 					if specials[0].priority == 0:  # if the first special has priority 0 it will get both faces
 						print(f"important Special: {specials[0]}")
+
 					elif len(specials) > 1:  # if there are more than 1 specials, the two with the lowest priority will get shown
 						print(f"First Special: {specials[0]}\nSecond Special: {specials[1]}")
+
 					else:  # the normal plan is only shown with 1 with a priority > 0, the special replaces the next bloc
 						print(f"Special: {specials[0]}")
 						print(f"Now: {now}")
