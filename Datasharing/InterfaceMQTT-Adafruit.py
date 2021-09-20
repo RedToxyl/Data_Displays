@@ -95,10 +95,7 @@ def on_disconnect(client, userdata, rc):
 
 
 def on_message(client, userdata, message):
-	print(message.topic)
-	print(message.topic.decode('utf-8'))
-	print(message.topic.decode('utf-8').split("/")[1])
-	if message.topic.decode('utf-8').split("/")[1] == "Data":
+	if message.topic.split("/")[1] == "Data":
 		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		global NEXT, CURRENT
 		CURRENT = NEXT
