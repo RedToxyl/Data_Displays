@@ -23,7 +23,7 @@ import time
 	
 	data = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "BLOCTIME": "7:30-8:15"}'
 	
-	special = '{"NUMBER": "2", "PRIORITY": "1", "TEXT": "Hello World"}'
+	special = '{"NUMBER": "2", "PRIORITY": "1", "TEXT": "Hello World", "IMAGE": None}'
 	
 	cancel = '2'
 	
