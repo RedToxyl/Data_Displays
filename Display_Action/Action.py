@@ -5,8 +5,8 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 # Definitions
-WIDTH = 64
-HEIGHT = 128
+WIDTH = 128
+HEIGHT = 64
 
 # 128x64 display with hardware I2C:
 disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
