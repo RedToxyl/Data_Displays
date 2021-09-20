@@ -53,25 +53,24 @@ MAC = getmac()
 ROOM = "A207"  # different for all clients
 BROKER = "192.168.178.45"  # needs to be defined for all clients
 connection_flag = False  # flag regarding the client connection, used for connection error handling
-COMMON_EXCEPTIONS = ()
-SPECIAL = []
-ERRORS = []
-CMDQUEUE = []
-CURRENT = None
-NEXT = None
+specials = []
+cmdqueue = []
+now = None
+after = None
 
 
-# TODO fix exceptions
-class CustomException(Exception):
-	def __init__(self, name):
-		self.name = name
+class ddispException(Exception):
+	def __init__(self, *args):
+		if args:
+			self.message = args[0]
+		else:
+			self.message = None
 
 	def __repr__(self):
-		return self.name
-
-
-ddisp_1 = CustomException("conniss")  # connection issue
-ddisp_2 = CustomException("subiss")  # subscription issue
+		if self.message:
+			return self.message
+		else:
+			return "An unknown ddispException has occured."
 
 
 # Callback functions
@@ -82,8 +81,7 @@ def on_connect(client, userdata, flags, rc, properties=None):
 		global connection_flag
 		connection_flag = True
 	else:
-		print("connection failed")
-		raise ddisp_1
+		raise ddispException(f"The connection has failed. rc= {rc}")
 
 
 def on_disconnect(client, userdata, rc):
@@ -91,30 +89,43 @@ def on_disconnect(client, userdata, rc):
 		print("disconnect successful")
 	else:
 		print(f"ERROR: Unexpected Connection Loss, rc='{rc}'")
-		raise ddisp_1
+		raise ddispException(f"Sudden Disconnect. rc= {rc}")
 
 
 def on_message(client, userdata, message):
-	if message.payload.decode('utf-8').split("|")[0] == '"bloc"':
-		blocinfo = ast.literal_eval(message.payload.decode('utf-8').split("|")[1])
-		global NEXT, CURRENT
-		CURRENT = NEXT
+	if message.topic.split("/")[1] == "Data":
+		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
+		global after, now
+		now = after
 		# TODO add try except here:
-		NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime=blocinfo["BLOCTIME"], room=blocinfo["ROOM"])
+		after = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'])
 
 
 # dataclass for the bloc
 
 class Bloc:
-	def __init__(self, teacher=None, subject=None, clss=None, room=None, bloctime=None):
+	def __init__(self, teacher=None, subject=None, clss=None, room=ROOM, bloctime=None):
 		self.teacher = teacher
 		self.subject = subject
 		self.clss = clss
 		self.room = room
 		self.bloctime = bloctime
 
+		if subject == "BREAK":
+			self.recess = True
+		else:
+			self.recess = False
+
 	def __repr__(self):
 		return f"{self.teacher}, {self.subject}, {self.clss}, {self.room}, {self.bloctime}"
+
+
+class Special:
+	def __init__(self, number, text, img, priority=1):
+		self.number = number
+		self.text = text
+		self.img = img
+		self.priority = priority
 
 
 if __name__ == "__main__":
@@ -133,7 +144,7 @@ if __name__ == "__main__":
 		while not connection_flag:  # check for connection until on_connect has been called
 			client.loop()
 			time.sleep(2)
-	except ddisp_1:  # in case of connection not working
+	except ddispException():  # in case of connection not working
 		# TODO catastrophic connection error
 		pass
 
@@ -156,13 +167,13 @@ if __name__ == "__main__":
 				client.loop()
 
 				# remove x from QUEUE
-				if SPECIAL:
+				if specials:
 					# TODO special handling
 					# draw special
 					pass
 				else:
-					print(f"Now:    {CURRENT}")
-					print(f"Next:    {NEXT}")
+					print(f"Now:    {now}")
+					print(f"Next:    {after}")
 					# TODO drawing
 					# draw face 1
 					# wait 5
@@ -171,8 +182,7 @@ if __name__ == "__main__":
 		# TODO status
 		# return Status
 
-		# THIS IS A WORKAROUND (catch all exceptions)
-		except:
+		except ddispException:
 			tries = 0
 			while not connection_flag and tries < 5:
 				client.reconnect()
