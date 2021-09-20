@@ -93,6 +93,7 @@ def on_disconnect(client, userdata, rc):
 		print(f"ERROR: Unexpected Connection Loss, rc='{rc}'")
 		raise ddisp_1
 
+# TODO determine message type by topic it's recieved in, not by leading "bloc"/"special"
 
 def on_message(client, userdata, message):
 	if message.payload.decode('utf-8').split("|")[0] == '"bloc"':
@@ -171,7 +172,7 @@ if __name__ == "__main__":
 		# TODO status
 		# return Status
 
-		# THIS IS A WORKAROUND (catch all exceptions)
+		# TODO THIS IS A WORKAROUND (catch all exceptions)
 		except:
 			tries = 0
 			while not connection_flag and tries < 5:
