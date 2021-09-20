@@ -53,12 +53,10 @@ MAC = getmac()
 ROOM = "A207"  # different for all clients
 BROKER = "192.168.178.45"  # needs to be defined for all clients
 connection_flag = False  # flag regarding the client connection, used for connection error handling
-COMMON_EXCEPTIONS = ()
-SPECIAL = []
-ERRORS = []
-CMDQUEUE = []
-CURRENT = None
-NEXT = None
+specials = []
+cmdqueue = []
+now = None
+after = None
 
 
 class ddispException(Exception):
@@ -97,16 +95,16 @@ def on_disconnect(client, userdata, rc):
 def on_message(client, userdata, message):
 	if message.topic.split("/")[1] == "Data":
 		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
-		global NEXT, CURRENT
-		CURRENT = NEXT
+		global after, now
+		now = after
 		# TODO add try except here:
-		NEXT = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'], room=blocinfo['ROOM'])
+		after = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'])
 
 
 # dataclass for the bloc
 
 class Bloc:
-	def __init__(self, teacher=None, subject=None, clss=None, room=None, bloctime=None):
+	def __init__(self, teacher=None, subject=None, clss=None, room=ROOM, bloctime=None):
 		self.teacher = teacher
 		self.subject = subject
 		self.clss = clss
@@ -138,7 +136,7 @@ if __name__ == "__main__":
 		while not connection_flag:  # check for connection until on_connect has been called
 			client.loop()
 			time.sleep(2)
-	except ddisp_1:  # in case of connection not working
+	except ddispException():  # in case of connection not working
 		# TODO catastrophic connection error
 		pass
 
@@ -161,13 +159,13 @@ if __name__ == "__main__":
 				client.loop()
 
 				# remove x from QUEUE
-				if SPECIAL:
+				if specials:
 					# TODO special handling
 					# draw special
 					pass
 				else:
-					print(f"Now:    {CURRENT}")
-					print(f"Next:    {NEXT}")
+					print(f"Now:    {now}")
+					print(f"Next:    {after}")
 					# TODO drawing
 					# draw face 1
 					# wait 5
