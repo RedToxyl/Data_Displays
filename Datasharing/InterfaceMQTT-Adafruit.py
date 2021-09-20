@@ -102,7 +102,7 @@ def on_message(client, userdata, message):
 		print(blocinfo)
 		print(type(blocinfo))
 		# TODO add try except here:
-		NEXT = Bloc(teacher=blocinfo["TEACHER"], subject=blocinfo["SUBJECT"], clss=blocinfo["CLASS"], bloctime=blocinfo["BLOCTIME"], room=blocinfo["ROOM"])
+		NEXT = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'], room=blocinfo['ROOM'])
 		print(NEXT)
 
 
