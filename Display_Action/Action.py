@@ -13,7 +13,7 @@ BOTTOM = HEIGHT - PADDING
 
 
 # 128x64 display with hardware I2C:
-disp = Adafruit_SSD1306.SSD1306_128_64()
+disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
 
 # startup
 disp.begin()
