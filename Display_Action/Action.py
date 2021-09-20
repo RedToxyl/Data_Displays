@@ -7,10 +7,6 @@ from PIL import ImageFont
 # Definitions
 WIDTH = 128
 HEIGHT = 64
-PADDING = -5
-TOP = PADDING
-BOTTOM = HEIGHT - PADDING
-
 
 # 128x64 display with hardware I2C:
 disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
@@ -27,8 +23,8 @@ draw = ImageDraw.Draw(img)
 font = ImageFont.load_default()
 
 while True:
-	draw.text((PADDING, PADDING), "9A - Englisch", 255, font)
-	draw.text((WIDTH / 2, HEIGHT / 22), "Grabow", 255, font)
+	draw.text((5, -5), "9A - Englisch", 255, font)
+	draw.text((WIDTH / 2, HEIGHT / 2), "Grabow", 255, font)
 
 	disp.image(img)
 	disp.display()
