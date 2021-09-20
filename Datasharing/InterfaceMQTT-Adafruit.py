@@ -120,6 +120,14 @@ class Bloc:
 		return f"{self.teacher}, {self.subject}, {self.clss}, {self.room}, {self.bloctime}"
 
 
+class Special:
+	def __init__(self, number, text, img, priority=1):
+		self.number = number
+		self.text = text
+		self.img = img
+		self.priority = priority
+
+
 if __name__ == "__main__":
 
 	# client is created, client_id is the MAC Adress to prevent duplicate logins
