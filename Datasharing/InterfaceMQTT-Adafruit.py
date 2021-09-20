@@ -175,7 +175,7 @@ if __name__ == "__main__":
 			while True:
 				client.loop()  # checks for new messages
 			# the following regulates with things are printed (displayed)
-				specials.sort(key=lambda special: special.priority, reverse=True)  # the list of all special messages gets sorted by priority
+				specials.sort(key=lambda special: special.priority),  # the list of all special messages gets sorted by priority
 				print(specials)
 				if specials:
 
@@ -188,6 +188,7 @@ if __name__ == "__main__":
 					else:  # the normal plan is only shown with 1 with a priority > 0, the special replaces the next bloc
 						print(f"Special: {specials[0]}")
 						print(f"Now: {now}")
+					time.sleep(5)
 
 				# none of this matters if there are no specials, in that case now and next will just rotate normally
 				else:
