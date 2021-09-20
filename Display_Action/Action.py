@@ -26,7 +26,7 @@ while True:
 	if input() == "del":
 		draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)
 	draw.text((3, 3), "9A - Englisch", 255, font)
-	draw.text((int(input()), int(input())), "Grabow", 255, font)
+	draw.text((int(input()), int(input())), "Grabow", 255, font=font, align="center")
 
 	disp.image(img)
 	disp.display()
