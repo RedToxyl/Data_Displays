@@ -3,7 +3,7 @@ import datetime
 
 
 def on_message(self, userdata, msg):
-	output = f"{msg.topic}:   {msg.payload.decode('utf-8')}"
+	output = f"{msg.payload.decode('utf-8')}"
 	if "New connection" in output and "192.168.178." not in output:
 		print("Warning! A user from a different Network has connected!\n")
 	print(output)
