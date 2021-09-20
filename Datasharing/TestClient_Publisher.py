@@ -6,8 +6,9 @@ import time
 def on_connect(self, userdata, flags, rc):
 	print("Connected with result code " + str(rc))
 
-	# Subscribing in on_connect() means that if we lose the connection and
-	# reconnect then subscriptions will be renewed.
+
+# Subscribing in on_connect() means that if we lose the connection and
+# reconnect then subscriptions will be renewed.
 
 
 # The callback for when a PUBLISH message is received from the server.
@@ -38,25 +39,17 @@ client.connect("192.168.178.45", 1883, 60)
 # manual interface.
 
 mode = 0
-while mode not in ["data", "manual", "mandata"]:
-	mode = input("Please enter mode. data, manual, mandata:    ")
+while mode not in ["b", "m", "s"]:
+	mode = input("Please enter mode. (b)loc, (m)anual, (s)pecial:    ")
 
-if mode == "manual":
+if mode == "m":
 	while True:
 		client.loop_start()
 		message = input("Enter message:    ")
 		client.publish("News/", message, 1, retain=False)
 		client.loop_stop()
 
-if mode == "data":
-	while True:
-		client.loop_start()
-		message = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A"}'
-		client.publish("Main/Data/A207", message, 1, retain=False)
-		client.loop_stop()
-		time.sleep(10)
-
-if mode == "mandata":
+if mode == "b":
 	while True:
 		client.loop_start()
 		message = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "BLOCTIME": "7:30-8:15", "ROOM": "207"}'
@@ -76,8 +69,43 @@ if mode == "mandata":
 		client.publish("Main/Data/A207", message, 1, retain=False)
 		client.loop_stop()
 
+if mode == "s":
+	while True:
+		client.loop_start()
+		message = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "BLOCTIME": "7:30-8:15", "ROOM": "207"}'
+		input()
+		client.publish("Main/Data/A207", message, 1, retain=False)
+		client.loop_stop()
 
+		client.loop_start()
+		message = '{"TEACHER": "None", "SUBJECT": "BREAK", "CLASS": "None", "BLOCTIME": "8:15-8:30", "ROOM": "None"}'
+		input()
+		client.publish("Main/Data/A207", message, 1, retain=False)
+		client.loop_stop()
 
+		client.loop_start()
+		message = '{"NUMBER": "2", "PRIORITY": "0", "TEXT": "Hello World", "IMAGE": None}'
+		input()
+		client.publish("Main/Special/A207", message, 1, retain=False)
+		client.loop_stop()
+
+		client.loop_start()
+		message = '{"NUMBER": "3", "PRIORITY": "1", "TEXT": "prio1", "IMAGE": None}'
+		input()
+		client.publish("Main/Special/A207", message, 1, retain=False)
+		client.loop_stop()
+
+		client.loop_start()
+		message = '2'
+		input()
+		client.publish("Main/Cancel/A207", message, 1, retain=False)
+		client.loop_stop()
+
+		client.loop_start()
+		message = '3'
+		input()
+		client.publish("Main/Cancel/A207", message, 1, retain=False)
+		client.loop_stop()
 
 while True:
 	client.loop_start()
@@ -87,4 +115,3 @@ while True:
 	client.publish("Main/Data/A207", message, 1, retain=False)
 	client.loop_stop()
 	time.sleep(10)
-
