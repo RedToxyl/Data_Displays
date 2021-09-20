@@ -131,7 +131,7 @@ class Special:
 		self.number = int(number)
 		self.text = text
 		self.img = img
-		self.priority = priority
+		self.priority = int(priority)
 
 	def __repr__(self):
 		return f"id: {self.number}, prio: {self.priority}\n{self.text}"
@@ -176,7 +176,6 @@ if __name__ == "__main__":
 				client.loop()  # checks for new messages
 			# the following regulates with things are printed (displayed)
 				specials.sort(key=lambda special: special.priority),  # the list of all special messages gets sorted by priority
-				print(specials)
 				if specials:
 
 					if specials[0].priority == 0:  # if the first special has priority 0 it will get both faces
