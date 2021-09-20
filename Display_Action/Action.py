@@ -21,7 +21,7 @@ disp.begin()
 disp.clear()
 disp.display()
 
-img = Image.new(1, (WIDTH, HEIGHT))
+img = Image.new("1", (WIDTH, HEIGHT))
 draw = ImageDraw.Draw(img)
 
 font = ImageFont.load_default()
