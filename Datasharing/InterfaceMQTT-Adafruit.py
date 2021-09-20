@@ -21,17 +21,11 @@ import time
 	Example of an instruction:
 
 	
-	msg = {image:"Hello2.ppm", text:"", custom:"", priority:"0"}}
+	data = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "BLOCTIME": "7:30-8:15"}'
 	
-	msg = {image:"", text:"Linus Schreiber, bitte ins Sekretariat kommen!", custom:"", priority:"0"}}
+	special = '{"NUMBER": "2", "PRIORITY": "1", "TEXT": "Hello World"}'
 	
-	msg = {image:"", text:"", custom:"...", priority:"0"}}
-	
-	Idea for a Slot-Structure
-	
-	messages have the format of (kind, content)
-	
-	kind is either data or command
+	cancel = '2'
 	
 	
 
@@ -99,6 +93,15 @@ def on_message(client, userdata, message):
 		now = after
 		# TODO add try except here:
 		after = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'])
+	elif message.topic.split("/")[1] == "Special":
+		specinfo = ast.literal_eval(message.payload.decode('utf-8'))
+		# TODO add try except here
+		specials.append(Special(number=specinfo['NUMBER'], priority=specinfo['PRIORITY'], text=specinfo['TEXT'], img=specinfo['IMAGE']))
+	elif message.topic.split("/")[1] == "Cancel":
+		cancelled = int(message.payload.decode('utf-8'))
+		for special in specials:
+			if special.number == cancelled:
+				specials.remove(special)
 
 
 # dataclass for the bloc
@@ -122,10 +125,13 @@ class Bloc:
 
 class Special:
 	def __init__(self, number, text, img, priority=1):
-		self.number = number
+		self.number = int(number)
 		self.text = text
 		self.img = img
 		self.priority = priority
+
+	def __repr__(self):
+		return f"id: {self.number}, prio: {self.priority}\n{self.text}\n{len(self.img)}"
 
 
 if __name__ == "__main__":
@@ -150,6 +156,7 @@ if __name__ == "__main__":
 
 	# TODO check for errors in subscription
 	# the client subscribes to commands, datasharing and the systemwide broadcasts
+	client.subscribe(f"Main/Cancel/{ROOM}")
 	client.subscribe(f"Main/Special/{ROOM}")
 	client.subscribe(f"Main/Data/{ROOM}")
 
@@ -163,14 +170,19 @@ if __name__ == "__main__":
 		# other
 		try:
 			while True:
-				# TODO gather updates
-				client.loop()
-
-				# remove x from QUEUE
+				client.loop()  # checks for new messages
+			# the following regulates with things are printed (displayed)
+				specials.sort(key=lambda special: special.priority, reverse=True)  # the list of all special messages gets sorted by priority
 				if specials:
-					# TODO special handling
-					# draw special
-					pass
+					if specials[0].priority == 0:  # if the first special has priority 0 it will get both faces
+						print(f"important Special: {specials[0]}")
+					elif len(specials) > 1:  # if there are more than 1 specials, the two with the lowest priority will get shown
+						print(f"First Special: {specials[0]}\nSecond Special: {specials[1]}")
+					else:  # the normal plan is only shown with 1 with a priority > 0, the special replaces the next bloc
+						print(f"Special: {specials[0]}")
+						print(f"Now: {now}")
+
+				# none of this matters if there are no specials, in that case now and next will just rotate normally
 				else:
 					print(f"Now:    {now}")
 					print(f"Next:    {after}")
@@ -178,6 +190,7 @@ if __name__ == "__main__":
 					# draw face 1
 					# wait 5
 					# draw face 2
+					time.sleep(5)
 					pass
 		# TODO status
 		# return Status
