@@ -25,7 +25,7 @@ def init_draw(width, height):
 	draw = ImageDraw.Draw(img)
 	font = ImageFont.load_default()
 	# TODO get bigger font
-	bigfont = ImageFont.truetype()
+	# bigfont = ImageFont.truetype()
 
 
 def show_bloc(clss, subject, teacher, timebloc, room):
