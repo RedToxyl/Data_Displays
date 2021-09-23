@@ -46,7 +46,7 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 	draw.rectangle(((x1, y1), (x2, y2)), outline=255, fill=255)
 
 	w, h = draw.textsize(room, font=mediumfont)
-	draw.text((x2 - (x2 - x1 - w) / 2, y2 - (y2 - y1 - h) / 2), text=f"{room}", fill=0, font=mediumfont)  # draws room number
+	draw.text((x2 - ((x2 - x1 - w) / 2) - w, y2 - ((y2 - y1 - h) / 2) - h), text=f"{room}", fill=0, font=mediumfont)  # draws room number
 
 	w, h = draw.textsize(timebloc, font=bigfont)
 	draw.text(((WIDTH - w) / 2, 50), f"{timebloc}", 255, font=bigfont)  # draws time
