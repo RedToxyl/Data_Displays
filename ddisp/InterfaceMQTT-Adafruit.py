@@ -47,6 +47,7 @@ def getmac():
 MAC = getmac()
 ROOM = "A207"  # different for all clients
 BROKER = "192.168.178.45"  # needs to be defined for all clients
+WAITTIME = 5
 connection_flag = False  # flag regarding the client connection, used for connection error handling
 specials = []
 cmdqueue = []
@@ -208,26 +209,31 @@ if __name__ == "__main__":
 				if specials:
 
 					if specials[0].priority == 0:  # if the first special has priority 0 it will get both faces
-						print(f"important Special: {specials[0]}")
+						ddisp_draw.show_special(specials[0].text)
+						time.sleep(WAITTIME)
 
 					elif len(specials) > 1:  # if there are more than 1 specials, the two with the lowest priority will get shown
-						print(f"First Special: {specials[0]}\nSecond Special: {specials[1]}")
+						ddisp_draw.show_special(specials[0].text)
+						time.sleep(WAITTIME)
+						ddisp_draw.show_special(specials[1].text)
+						time.sleep(WAITTIME)
 
 					elif now:  # if there is only a special with priority > 0 and now exists, show both
-						print(f"Special: {specials[0]}")
-						time.sleep(5)
+						ddisp_draw.show_special(specials[0].text)
+						time.sleep(WAITTIME)
 						ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.bloctime, now.room)
-						time.sleep(5)
+						time.sleep(WAITTIME)
 					else:  # only a special exists
-						print(f"Special: {specials[0]}")
+						ddisp_draw.show_special(specials[0].text)
+						time.sleep()
 
 				# none of this matters if there are no specials, in that case now and next will just rotate normally
 				else:
 					if now and after:
 						ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.bloctime, now.room)
-						time.sleep(5)
+						time.sleep(WAITTIME)
 						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room, after.current)
-						time.sleep(5)
+						time.sleep(WAITTIME)
 		# TODO status
 		# return Status
 

@@ -49,7 +49,7 @@ def show_bloc(clss, subject, teacher, timebloc, room, current=True):
 
 	w, h = draw.textsize(timebloc, font=bigfont)
 	draw.text(((WIDTH - w) / 2, 50), f"{timebloc}", 255, font=bigfont)  # draws time
-
+	# TODO properly align "danach: " and teacher
 	if not current:
 		draw.text((3, (HEIGHT - h) / 2), "Danach: ", 255, mediumfont)  # for the next bloc in line
 
