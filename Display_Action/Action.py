@@ -29,7 +29,6 @@ def init_draw(width, height):
 
 
 def show_bloc(clss, subject, teacher, timebloc, room):
-
 	# drawing new text
 	draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)  # clears display
 	draw.text((3, 3), f"{clss} - {subject}", 255, font=font)  # draws class and subject
@@ -54,9 +53,22 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 	disp.image(img)
 	disp.display()
 
-# TODO special blocs
+
+def show_special(text):
+	# TODO mke multiline text
+	draw.multiline_text((5, 5), text, 255, font)
+	disp.image(img)
+	disp.display()
+
+
+def show_image(image):
+	disp.image(image)
+	disp.display()
+
+
 # TODO special images
 
 
 init_draw(128, 64)
 show_bloc("9a", "Geschiche", "Wolke-Klunter", "7:30 - 8:15", "214")
+show_special("Hello,\nthis is the admninistration.\nWe wish you a nice day!")
