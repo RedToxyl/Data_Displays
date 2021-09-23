@@ -117,7 +117,8 @@ def on_message(client, userdata, message):
 		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		global after, now
 		now = after
-		now.current = True
+		if now:
+			now.current = True
 		# TODO add try except here:
 		after = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'])
 
