@@ -64,7 +64,7 @@ if mode == "b":
 		client.loop_stop()
 
 		client.loop_start()
-		message = '{"TEACHER": "Schiemenz", "SUBJECT": "Mathe", "CLASS": "LK_1 12", "BLOCTIME": "8:30-9:15", "ROOM": "207"}'
+		message = '{"TEACHER": "Schiemenz", "SUBJECT": "Mathe", "CLASS": "LK1 12", "BLOCTIME": "8:30-9:15", "ROOM": "207"}'
 		input()
 		client.publish("Main/Data/A207", message, 1, retain=False)
 		client.loop_stop()

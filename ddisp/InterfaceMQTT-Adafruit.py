@@ -210,10 +210,13 @@ if __name__ == "__main__":
 					elif len(specials) > 1:  # if there are more than 1 specials, the two with the lowest priority will get shown
 						print(f"First Special: {specials[0]}\nSecond Special: {specials[1]}")
 
-					else:  # the normal plan is only shown with 1 with a priority > 0, the special replaces the next bloc
+					elif now:  # if there is only a special with priority > 0 and now exists, show both
 						print(f"Special: {specials[0]}")
-						print(f"Now: {now}")
-					time.sleep(5)
+						time.sleep(5)
+						ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.bloctime, now.room)
+						time.sleep(5)
+					else:  # only a special exists
+						print(f"Special: {specials[0]}")
 
 				# none of this matters if there are no specials, in that case now and next will just rotate normally
 				else:

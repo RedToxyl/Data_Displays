@@ -31,9 +31,9 @@ def init_draw(width, height):
 def show_bloc(clss, subject, teacher, timebloc, room):
 	# drawing new text
 	draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)  # clears display
-	draw.text((3, 3), f"{clss} - {subject}", 255, font=font)  # draws class and subject
+	draw.text((3, 3), f"{clss}-{subject}", 255, font=font)  # draws class and subject
 
-	# thank you very much, I can't be bothered with this: https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil
+	# thank you so very very much, I can't be bothered with this: https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil
 	w, h = draw.textsize(teacher)
 	draw.text(((WIDTH - w) / 2, (HEIGHT - h) / 2), f"{teacher}", 255, font=font)  # draws teacher
 
