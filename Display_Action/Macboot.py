@@ -14,7 +14,7 @@ cat = Image.open('happycat_oled_64.ppm').convert('1')
 # Raspberry Pi pin configuration:
 RST = None
 
-# 128x32 display with hardware I2C:
+# 128x64 display with hardware I2C:  #i might be imcompetent
 disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST)
 
 # Initialize library.
