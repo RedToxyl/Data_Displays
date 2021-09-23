@@ -7,27 +7,27 @@ import time
 """ 
 
 	Command Structure:
-	
+
 	incoming:
 		Main/Command/Raspi_xyz
 		Main/Data/Raspi_xyz
 		Main/Broadcast/Data
 		Main/Broadcast/Command
-	
+
 	outgoing:
 		Main/Raspi_xyz/Status
 
 
 	Example of an instruction:
 
-	
+
 	data = '{"TEACHER": "Berg", "SUBJECT": "Englisch", "CLASS": "10A", "BLOCTIME": "7:30-8:15"}'
-	
+
 	special = '{"NUMBER": "2", "PRIORITY": "1", "TEXT": "Hello World", "IMAGE": None}'
-	
+
 	cancel = '2'
-	
-	
+
+
 
 """
 
@@ -67,6 +67,14 @@ class ddispException(Exception):
 			return "An unknown ddispException has occured."
 
 
+class ddispCatastrophicException(ddispException):
+	def __repr__(self):
+		if self.message:
+			return f"Catastrophic Error: {self.message}"
+		else:
+			return "An unknown catastrophic exception has occured."
+
+
 # Callback functions
 
 def on_connect(client, userdata, flags, rc, properties=None):
@@ -88,7 +96,22 @@ def on_disconnect(client, userdata, rc):
 
 def on_message(client, userdata, message):
 	# TODO MAYBE add standart specials
-	# TODO comment this crap
+	# TODO deal with bad messages
+	"""
+			incoming messages can be one of three types
+
+			Data is information about a standart timebloc and contains teacher, subject, class and it's time
+			In order to allow for an easy display of the current and next bloc, ±now± will get
+			automatically replaced by next and ±next± by the incoming message
+
+			Special contains data about a special display, configured by the user on the broker
+			New specials get added to the list specials, which gets sorted with ascending priority
+			specials have an id to uniquely identify them
+			special messages must always contain all keywords, though they can be empty
+
+			Cancel messages consist solely out of a number
+			When a cancel message arrives, all Specials with that id get removed from specials[]
+	"""
 	if message.topic.split("/")[1] == "Data":
 		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		global after, now
@@ -126,6 +149,8 @@ class Bloc:
 	def __repr__(self):
 		return f"{self.teacher}, {self.subject}, {self.clss}, {self.room}, {self.bloctime}"
 
+
+# dataclass for the special event
 
 class Special:
 	def __init__(self, number, text, img, priority=1):
@@ -169,13 +194,12 @@ if __name__ == "__main__":
 
 	while True:
 		# TODO normal error handling
-		# TODO connection error handling
 		# connection
 		# other
 		try:
 			while True:
 				client.loop(timeout=2)  # checks for new messages
-			# the following regulates with things are printed (displayed)
+				# the following regulates with things are printed (displayed)
 				specials.sort(key=lambda special: special.priority),  # the list of all special messages gets sorted by priority
 				if specials:
 
@@ -210,5 +234,6 @@ if __name__ == "__main__":
 				time.sleep(5)
 			if not connection_flag:
 				# TODO catastrophic connection error
+				raise ddispCatastrophicException("Could not reconnect after 5 tries! Is the broker still online?")
 				pass
 		pass
