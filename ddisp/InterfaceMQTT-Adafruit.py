@@ -117,6 +117,7 @@ def on_message(client, userdata, message):
 		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		global after, now
 		now = after
+		now.current = True
 		# TODO add try except here:
 		after = Bloc(teacher=blocinfo['TEACHER'], subject=blocinfo['SUBJECT'], clss=blocinfo['CLASS'], bloctime=blocinfo['BLOCTIME'])
 
@@ -141,6 +142,7 @@ class Bloc:
 		self.clss = clss
 		self.room = room
 		self.bloctime = bloctime
+		self.current = False
 
 		if subject == "BREAK":
 			self.recess = True
@@ -223,7 +225,7 @@ if __name__ == "__main__":
 					if now and after:
 						ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.bloctime, now.room)
 						time.sleep(5)
-						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room)
+						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room, after.current)
 						time.sleep(5)
 		# TODO status
 		# return Status

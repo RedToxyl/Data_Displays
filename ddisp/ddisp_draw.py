@@ -28,14 +28,14 @@ def init_draw(width, height):
 	bigfont = ImageFont.truetype("/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf", 15)
 
 
-def show_bloc(clss, subject, teacher, timebloc, room):
+def show_bloc(clss, subject, teacher, timebloc, room, current=True):
 	# drawing new text
 	draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)  # clears display
 	draw.text((3, 3), f"{clss}-{subject}", 255, font=font)  # draws class and subject
 
 	# thank you so very very much, I can't be bothered with this: https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil
-	w, h = draw.textsize(teacher)
-	draw.text(((WIDTH - w) / 2, (HEIGHT - h) / 2), f"{teacher}", 255, font=font)  # draws teacher
+	w, h = draw.textsize(teacher, font=mediumfont)
+	draw.text(((WIDTH - w) / 2, (HEIGHT - h) / 2), f"{teacher}", 255, font=mediumfont)  # draws teacher
 
 	# draws room square
 	x1 = WIDTH - int(HEIGHT / 3) - 15
@@ -49,6 +49,9 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 
 	w, h = draw.textsize(timebloc, font=bigfont)
 	draw.text(((WIDTH - w) / 2, 50), f"{timebloc}", 255, font=bigfont)  # draws time
+
+	if not current:
+		draw.text((3, (HEIGHT - h) / 2), "Danach: ", 255, mediumfont)  # for the next bloc in line
 
 	disp.image(img)
 	disp.display()
