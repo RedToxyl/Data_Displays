@@ -215,12 +215,16 @@ if __name__ == "__main__":
 
 				# none of this matters if there are no specials, in that case now and next will just rotate normally
 				else:
-					# TODO drawing
-					ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.timebloc, now.room)
-					time.sleep(5)
-					ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.timebloc, after.room)
-					time.sleep(5)
-					pass
+					try:
+						ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.timebloc, now.room)
+						time.sleep(5)
+					except AttributeError:
+						pass
+					try:
+						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.timebloc, after.room)
+						time.sleep(5)
+					except AttributeError:
+						pass
 		# TODO status
 		# return Status
 
