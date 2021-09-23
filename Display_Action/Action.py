@@ -34,7 +34,7 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 	draw.text((int(input()), int(input())), f"{teacher}", 255, font)  # draws teacher
 	#  draws room square
 	#  draws room number
-	draw.text((int(input()), int(input()), f"{timebloc}", 255, font))  # draws time
+	draw.text((int(input()), int(input())), f"{timebloc}", 255, font)  # draws time
 
 	disp.image(img)
 	disp.display()
