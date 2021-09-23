@@ -24,6 +24,8 @@ def init_draw(width, height):
 	img = Image.new("1", (WIDTH, HEIGHT))
 	draw = ImageDraw.Draw(img)
 	font = ImageFont.load_default()
+	# TODO get bigger font
+	bigfont = ImageFont.truetype()
 
 
 def show_bloc(clss, subject, teacher, timebloc, room):
@@ -33,10 +35,11 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 	draw.text((3, 3), f"{clss} - {subject}", 255, font)  # draws class and subject
 	# thank you very much, I can't be bothered with this: https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil
 	w, h = draw.textsize(teacher)
-	draw.text(((WIDTH - w) / 2, (HEIGHT - h) / 2 - 5), f"{teacher}", 255, font)  # draws teacher
+	draw.text(((WIDTH - w) / 2, (HEIGHT - h) / 2 - 10), f"{teacher}", 255, font)  # draws teacher
 	#  draws room square
 	#  draws room number
-	draw.text((int(input()), int(input())), f"{timebloc}", 255, font)  # draws time
+	w, h = draw.textsize(timebloc)
+	draw.text(((WIDTH - w) / 2, 40), f"{timebloc}", 255, )  # draws time
 
 	disp.image(img)
 	disp.display()
