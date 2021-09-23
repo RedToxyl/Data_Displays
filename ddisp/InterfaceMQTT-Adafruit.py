@@ -1,8 +1,7 @@
 import paho.mqtt.client as mqtt
-import Adafruit_SSD1306
-import PIL
 import ast
 import time
+import ddisp_draw
 
 """ 
 
@@ -189,7 +188,7 @@ if __name__ == "__main__":
 	client.subscribe(f"Main/Special/{ROOM}")
 	client.subscribe(f"Main/Data/{ROOM}")
 
-	# setup adafruit
+	ddisp_draw.init_draw(128, 64)  # initialises the display for drawing
 	# boot sequence images
 
 	while True:
@@ -216,12 +215,10 @@ if __name__ == "__main__":
 
 				# none of this matters if there are no specials, in that case now and next will just rotate normally
 				else:
-					print(f"Now:    {now}")
-					print(f"Next:    {after}")
 					# TODO drawing
-					# draw face 1
-					# wait 5
-					# draw face 2
+					ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.timebloc, now.room)
+					time.sleep(5)
+					ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.timebloc, after.room)
 					time.sleep(5)
 					pass
 		# TODO status
