@@ -23,9 +23,8 @@ def init_draw(width, height):
 
 	img = Image.new("1", (WIDTH, HEIGHT))
 	draw = ImageDraw.Draw(img)
-	font = ImageFont.load_default()
-	# TODO get bigger font
-	# bigfont = ImageFont.truetype()
+	font = ImageFont.truetype("/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf")
+	bigfont = ImageFont.truetype("/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf", 15)
 
 
 def show_bloc(clss, subject, teacher, timebloc, room):
