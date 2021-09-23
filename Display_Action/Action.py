@@ -31,10 +31,17 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 	# drawing new text
 	draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)  # clears display
 	draw.text((3, 3), f"{clss} - {subject}", 255, font)  # draws class and subject
-	draw.text((int(input()), int(input()), f"{teacher}", 255, font))  # draws teacher
+	draw.text((int(input()), int(input())), f"{teacher}", 255, font)  # draws teacher
 	#  draws room square
 	#  draws room number
 	draw.text((int(input()), int(input()), f"{timebloc}", 255, font))  # draws time
 
 	disp.image(img)
 	disp.display()
+
+# TODO special blocs
+# TODO special images
+
+
+init_draw(128, 64)
+show_bloc("9a", "Englisch", "Berg", "7:30 - 8:15", "214")
