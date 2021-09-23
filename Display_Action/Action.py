@@ -1,33 +1,40 @@
-import time
-import Adafruit_SSD1306
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
+def init_draw(width, height):
+	# imports the necessary modules
+	import Adafruit_SSD1306
+	from PIL import Image
+	from PIL import ImageDraw
+	from PIL import ImageFont
 
-# Definitions
-WIDTH = 128
-HEIGHT = 64
+	global WIDTH, HEIGHT, img, draw, font, disp
+	WIDTH = width
+	HEIGHT = height
 
-# 128x64 display with hardware I2C:
-disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
+	if WIDTH == 128 and HEIGHT == 64:
+		# TODO what is rst? rename disp?
+		disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
+	else:
+		# TODO create proper error
+		raise KeyError
 
-# startup
-disp.begin()
+	# TODO draw opening sequences
+	disp.begin()
+	disp.clear()
+	disp.display()
 
-disp.clear()
-disp.display()
+	img = Image.new("1", (WIDTH, HEIGHT))
+	draw = ImageDraw.Draw(img)
+	font = ImageFont.load_default()
 
-img = Image.new("1", (WIDTH, HEIGHT))
-draw = ImageDraw.Draw(img)
 
-font = ImageFont.load_default()
+def show_bloc(clss, subject, teacher, timebloc, room):
 
-while True:
-	if input() == "del":
-		draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)
-	draw.text((3, 3), "9A - Englisch", 255, font)
-	draw.text((int(input()), int(input())), "Grabow", 255, font=font, align="center")
+	# drawing new text
+	draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)  # clears display
+	draw.text((3, 3), f"{clss} - {subject}", 255, font)  # draws class and subject
+	draw.text((int(input()), int(input()), f"{teacher}", 255, font))  # draws teacher
+	#  draws room square
+	#  draws room number
+	draw.text((int(input()), int(input()), f"{timebloc}", 255, font))  # draws time
 
 	disp.image(img)
 	disp.display()
-	time.sleep(1)
