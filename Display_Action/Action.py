@@ -59,4 +59,4 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 
 
 init_draw(128, 64)
-show_bloc("9a", "Englisch", "Berg", "7:30 - 8:15", "214")
+show_bloc("9a", "Geschiche", "Wolke-Klunter", "7:30 - 8:15", "214")
