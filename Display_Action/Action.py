@@ -36,7 +36,7 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 	# thank you very much, I can't be bothered with this: https://stackoverflow.com/questions/1970807/center-middle-align-text-with-pil
 	w, h = draw.textsize(teacher)
 	draw.text(((WIDTH - w) / 2, (HEIGHT - h) / 2 - 10), f"{teacher}", 255, font)  # draws teacher
-	draw.rectangle(((128 - int(HEIGHT / 3), 0), (128, int(HEIGHT / 3))), outline=255, fill=255)  # draws room square
+	draw.rectangle(((128 - int(HEIGHT / 3) - 15, 0), (128, int(HEIGHT / 3))), outline=255, fill=255)  # draws room square
 	#  draws room number
 	w, h = draw.textsize(timebloc)
 	draw.text(((WIDTH - w) / 2, 40), f"{timebloc}", 255, )  # draws time
