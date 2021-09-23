@@ -58,13 +58,19 @@ if mode == "b":
 		client.loop_stop()
 
 		client.loop_start()
-		message = '{"TEACHER": "None", "SUBJECT": "BREAK", "CLASS": "None", "BLOCTIME": "8:15-8:30", "ROOM": "None"}'
+		message = '{"TEACHER": "Schiemenz", "SUBJECT": "Mathe", "CLASS": "LK1 12", "BLOCTIME": "8:30-9:15", "ROOM": "207"}'
 		input()
 		client.publish("Main/Data/A207", message, 1, retain=False)
 		client.loop_stop()
 
 		client.loop_start()
-		message = '{"TEACHER": "Schiemenz", "SUBJECT": "Mathe", "CLASS": "LK1 12", "BLOCTIME": "8:30-9:15", "ROOM": "207"}'
+		message = '{"TEACHER": "Oertmann", "SUBJECT": "Geschichte", "CLASS": "LK1 12", "BLOCTIME": "9:25-10:10", "ROOM": "207"}'
+		input()
+		client.publish("Main/Data/A207", message, 1, retain=False)
+		client.loop_stop()
+
+		client.loop_start()
+		message = '{"TEACHER": "PAUSE", "SUBJECT": "", "CLASS": "", "BLOCTIME": "9:25-10:10", "ROOM": "207"}'
 		input()
 		client.publish("Main/Data/A207", message, 1, retain=False)
 		client.loop_stop()
