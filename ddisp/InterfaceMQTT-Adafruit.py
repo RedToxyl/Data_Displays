@@ -1,3 +1,5 @@
+import traceback
+
 import paho.mqtt.client as mqtt
 import ast
 import time
@@ -216,15 +218,17 @@ if __name__ == "__main__":
 				# none of this matters if there are no specials, in that case now and next will just rotate normally
 				else:
 					try:
-						ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.timebloc, now.room)
+						ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.bloctime, now.room)
 						time.sleep(5)
-					except AttributeError:
-						pass
+					except AttributeError as exc:
+						print(traceback.format_exc())
+						print(exc)
 					try:
-						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.timebloc, after.room)
+						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room)
 						time.sleep(5)
-					except AttributeError:
-						pass
+					except AttributeError as exc:
+						print(traceback.format_exc())
+						print(exc)
 		# TODO status
 		# return Status
 
