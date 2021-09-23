@@ -55,20 +55,15 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 
 
 def show_special(text):
-	# TODO mke multiline text
+	# TODO implement multiline text
+	draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)
 	draw.multiline_text((5, 5), text, 255, font)
 	disp.image(img)
 	disp.display()
 
 
 def show_image(image):
+	# TODO special images
+	draw.rectangle((0, 0, WIDTH, HEIGHT), outline=0, fill=0)
 	disp.image(image)
 	disp.display()
-
-
-# TODO special images
-
-
-init_draw(128, 64)
-show_bloc("9a", "Geschiche", "Wolke-Klunter", "7:30 - 8:15", "214")
-show_special("Hello,\nthis is the admninistration.\nWe wish you a nice day!")
