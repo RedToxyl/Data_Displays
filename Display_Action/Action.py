@@ -5,7 +5,7 @@ def init_draw(width, height):
 	from PIL import ImageDraw
 	from PIL import ImageFont
 
-	global WIDTH, HEIGHT, img, draw, font, disp, font, bigfont
+	global WIDTH, HEIGHT, img, draw, font, disp, font, bigfont, mediumfont
 	WIDTH = width
 	HEIGHT = height
 
@@ -24,6 +24,7 @@ def init_draw(width, height):
 	img = Image.new("1", (WIDTH, HEIGHT))
 	draw = ImageDraw.Draw(img)
 	font = ImageFont.truetype("/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf")
+	mediumfont = ImageFont.truetype("/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf", 12)
 	bigfont = ImageFont.truetype("/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf", 15)
 
 
@@ -43,7 +44,7 @@ def show_bloc(clss, subject, teacher, timebloc, room):
 	y1 = 0
 	y2 = int(HEIGHT / 3)
 	draw.rectangle(((x1, y1), (x2, y2)), outline=255, fill=255)
-	draw.text((x2 - (x2 - x1) / 2, (y2 - (y2 - y1) / 2)), text=f"{room}", fill=0, font=font, anchor="mm")  # draws room number
+	draw.text((x2 - (x2 - x1) / 2, (y2 - (y2 - y1) / 2)), text=f"{room}", fill=0, font=mediumfont, anchor="mm")  # draws room number
 
 	w, h = draw.textsize(timebloc, font=bigfont)
 	draw.text(((WIDTH - w) / 2, 40), f"{timebloc}", 255, font=bigfont)  # draws time
