@@ -47,7 +47,7 @@ def getmac():
 MAC = getmac()
 ROOM = "A207"  # different for all clients
 BROKER = "192.168.178.45"  # needs to be defined for all clients
-WAITTIME = 5
+WAITTIME = 3
 connection_flag = False  # flag regarding the client connection, used for connection error handling
 specials = []
 cmdqueue = []
