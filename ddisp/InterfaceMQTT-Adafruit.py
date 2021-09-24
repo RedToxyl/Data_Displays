@@ -229,7 +229,7 @@ if __name__ == "__main__":
 					if now and after:
 						ddisp_draw.show_bloc(now.clss, now.subject, now.teacher, now.bloctime, now.room)
 						time.sleep(WAITTIME)
-						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room, after.current)
+						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room)
 						time.sleep(WAITTIME)
 		# TODO status
 		# return Status
