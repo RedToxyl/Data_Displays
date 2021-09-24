@@ -48,7 +48,7 @@ def show_bloc(clss, subject, teacher, timebloc, room, nxt=False):
 	y1 = 0
 	y2 = int(HEIGHT / 3)
 
-	if draw.textsize(f"{clss}-{subject}", font=mediumfont)[0] < WIDTH - (x2 - x1) - 3:  # if the size of the class and subject is smaller than the space without the room-rectangle and the left ofset (here 3), do not draw roomnumber
+	if draw.textsize(f"{clss}-{subject}", font=font)[0] < WIDTH - (x2 - x1) - 3:  # if the size of the class and subject is smaller than the space without the room-rectangle and the left ofset (here 3), do not draw roomnumber
 		overhang = True
 	else:
 		overhang = False
