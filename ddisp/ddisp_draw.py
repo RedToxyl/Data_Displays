@@ -40,10 +40,7 @@ def show_bloc(clss, subject, teacher, timebloc, room, nxt=False):
 	draw.text((3, 3), f"{clss}-{subject}", 255, font=font)
 
 	# TODO differentiate current and next bloc somehow
-	if next:
-		draw.text((3, 3), "Danach: ", 255, mediumfont)  # for the next bloc in line
-	else:
-		pass
+	# draw.text((3, 3), "Danach: ", 255, mediumfont)  # for the next bloc in line
 
 	# points to create the roomrectangle
 	x1 = WIDTH - int(HEIGHT / 3) - 15
