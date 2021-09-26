@@ -106,6 +106,7 @@ def on_disconnect(client, userdata, rc):
 def on_message(client, userdata, message):
 	# TODO MAYBE add standart specials
 	# TODO deal with bad messages
+
 	"""
 			incoming messages can be one of three types
 
@@ -121,6 +122,7 @@ def on_message(client, userdata, message):
 			Cancel messages consist solely out of a number
 			When a cancel message arrives, all Specials with that id get removed from specials[]
 	"""
+
 	if message.topic.split("/")[1] == "Data":
 		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		global after, now
@@ -213,9 +215,10 @@ if __name__ == "__main__":
 				if after and not now:
 					nonow_flag = True
 				print("1" + str(nonow_flag))
+
 				while nonow_flag:
 					status_nonow()
-					client.loop(timeout=2)
+					client.loop(timeout=10)
 					print("2" + str(nonow_flag))
 					if after and not now:
 						nonow_flag = True

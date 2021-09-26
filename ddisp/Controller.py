@@ -94,7 +94,7 @@ while True:
 
 			while True:
 
-				# for every timebloc it checks wether the current our and minute are bigger, if yes, this is the current one now
+				# for every timebloc it checks whether the current our and minute are bigger, if yes, this is the current one now
 				for timebloc in TIMES:
 					if int(time.strftime("%H", time.localtime())) > int(timebloc.split(":")[0]):
 						newcurrenttimebloc = TIMES.index(timebloc)
