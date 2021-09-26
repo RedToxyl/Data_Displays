@@ -83,6 +83,7 @@ class ddispCatastrophicException(ddispException):
 def status_nonow():
 	print("YOU DO THIS???")
 	client.publish(f"Main/Status/{ROOM}", "NONOW", retain=False)
+	client.loop()
 
 
 # Callback functions

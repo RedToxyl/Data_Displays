@@ -39,10 +39,12 @@ def on_connect(self, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(self, userdata, msg):
-
+	print("GHHHHHHHU/IZP)(/ZTFZU()=CFG(Z/FXDGUZ")
+	print(msg.topic.decode('utf-8'))
+	print(msg.payload.decode('utf-8'))
 	# adds a nonow status to the list of status reports
-	if msg.topic.split("/")[1] == "Status":
-		statuslist.append((msg.topic.split("/")[0], "NONOW"))
+	if msg.payload.decode('utf-8').split("/")[1] == "Status":
+		statuslist.append((msg.topic.decode('utf-8').split("/")[0], "NONOW"))
 
 	output = f"{msg.topic}:   {msg.payload.decode('utf-8')}"
 	print(output)
