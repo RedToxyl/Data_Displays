@@ -41,8 +41,9 @@ def on_connect(self, userdata, flags, rc):
 def on_message(self, userdata, msg):
 
 	# adds a nonow status to the list of status reports
-	if msg.topic.split("/")[1]:
+	if msg.topic.split("/")[1] == "Status":
 		statuslist.append((msg.topic.split("/")[0], "NONOW"))
+
 	output = f"{msg.topic}:   {msg.payload.decode('utf-8')}"
 	print(output)
 
@@ -116,6 +117,8 @@ while True:
 							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"])
 
 				# checks every status in the statuslist, clears it at the end of the cycle
+
+				print(statuslist)
 				for status in statuslist:
 					if status[1] == "NONOW":
 						send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[1], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["SUBJECT"])

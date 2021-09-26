@@ -46,7 +46,7 @@ def getmac():
 # definitions
 MAC = getmac()
 ROOM = "A207"  # different for all clients
-BROKER = "192.168.178.45"  # needs to be defined for all clients
+BROKER = "192.168.178.45"  # needs to be defined, depends on situation of implementation
 WAITTIME = 3
 connection_flag = False  # flag regarding the client connection, used for connection error handling
 nonow_flag = False
@@ -81,6 +81,7 @@ class ddispCatastrophicException(ddispException):
 
 # function that complains to the controller if there is no now, but an after
 def status_nonow():
+	print("YOU DO THIS???")
 	client.publish(f"Main/Status/{ROOM}", "NONOW", retain=False)
 
 
@@ -211,7 +212,7 @@ if __name__ == "__main__":
 			while True:
 				client.loop(timeout=2)  # checks for new messages
 
-				# if there is a bloc happening next, but no one happening now; raise a nonow_flag
+				# if there is a bloc happening next, but no one happening now; set a nonow_flag
 				if after and not now:
 					nonow_flag = True
 				print("1" + str(nonow_flag))
@@ -256,7 +257,6 @@ if __name__ == "__main__":
 						time.sleep(WAITTIME)
 						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room)
 						time.sleep(WAITTIME)
-				print("3" + str(nonow_flag))
 			# return Status
 
 		except ddispException:
