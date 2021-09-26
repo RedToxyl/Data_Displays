@@ -81,7 +81,7 @@ class ddispCatastrophicException(ddispException):
 
 # function that complains to the controller if there is no now, but an after
 def status_nonow():
-	client.publish(f"Main/Status/ROOM", "NONOW", retain=False)
+	client.publish(f"Main/Status/{ROOM}", "NONOW", retain=False)
 
 
 # Callback functions

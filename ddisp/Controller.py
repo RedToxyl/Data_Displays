@@ -128,7 +128,7 @@ while True:
 
 		except KeyboardInterrupt:
 			# open menu
-			if input("Quit? (q)") == "q":
+			if input("	Quit? (q)") == "q":
 				quit()
 	# TODO only except ddisp exception
 	except IndentationError:
