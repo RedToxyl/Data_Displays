@@ -252,6 +252,7 @@ if __name__ == "__main__":
 						time.sleep(WAITTIME)
 						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room)
 						time.sleep(WAITTIME)
+				print(nonow_flag)
 			# return Status
 
 		except ddispException:
