@@ -212,11 +212,11 @@ if __name__ == "__main__":
 				# if there is a bloc happening next, but no one happening now; raise a nonow_flag
 				if after and not now:
 					nonow_flag = True
-
+				print("1" + nonow_flag)
 				while nonow_flag:
 					status_nonow()
 					client.loop(timeout=2)
-
+					print("2" + nonow_flag)
 					if after and not now:
 						nonow_flag = True
 					else:
@@ -252,7 +252,7 @@ if __name__ == "__main__":
 						time.sleep(WAITTIME)
 						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room)
 						time.sleep(WAITTIME)
-				print(nonow_flag)
+				print("3" + nonow_flag)
 			# return Status
 
 		except ddispException:
