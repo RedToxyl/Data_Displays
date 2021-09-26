@@ -27,6 +27,16 @@ CLIENTID = "ddisp_Controller"
 
 while True:
 	try:
-		pass
+
+		try:
+
+			while True:
+				pass
+
+		except KeyboardInterrupt:
+			# open menu
+			pass
+
 	except ddispException:
+		# try to reconnect
 		pass
