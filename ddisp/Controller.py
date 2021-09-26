@@ -43,10 +43,6 @@ def on_message(self, userdata, msg):
 	if msg.topic.split("/")[1] == "Status":
 		statuslist.append((msg.topic.split("/")[2], "NONOW"))
 
-	output = f"{msg.topic}:   {msg.payload.decode('utf-8')}"
-	print(output)
-
-
 def on_disconnect(self, userdata, rc):
 	if rc == 0:
 		print(f"{self._client_id.decode('utf-8')} has disconnectet in an orderly fashion.")
@@ -115,9 +111,10 @@ while True:
 						for room in data[f"Bloc{currenttimebloc}"]["ROOMGRID"]:
 							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"])
 
-				# checks every status in the statuslist, clears it at the end of the cycle
+				# the status-handling
+				# checks for statuses in the statuslist
 
-				print(statuslist)
+				# in case of NONOW, send the current and the next info to the raspi in question
 				for status in statuslist:
 					if status[1] == "NONOW":
 						send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[0], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"]
@@ -128,6 +125,8 @@ while True:
 						except ValueError:
 							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[0], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"]
 							[f"{status[0]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["SUBJECT"])
+
+				# reset statuslist after handling
 				statuslist = []
 				client.loop()
 
