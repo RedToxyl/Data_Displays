@@ -143,7 +143,7 @@ class Bloc:
 		self.room = room
 		self.bloctime = bloctime
 
-		if subject == "BREAK":
+		if teacher == "PAUSE":
 			self.recess = True
 		else:
 			self.recess = False
