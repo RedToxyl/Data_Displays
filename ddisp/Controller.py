@@ -39,12 +39,9 @@ def on_connect(self, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(self, userdata, msg):
-	print("GHHHHHHHU/IZP)(/ZTFZU()=CFG(Z/FXDGUZ")
-	print(msg.topic.decode('utf-8'))
-	print(msg.payload.decode('utf-8'))
 	# adds a nonow status to the list of status reports
-	if msg.payload.decode('utf-8').split("/")[1] == "Status":
-		statuslist.append((msg.topic.decode('utf-8').split("/")[0], "NONOW"))
+	if msg.topic.split("/")[1] == "Status":
+		statuslist.append((msg.topic.split("/")[2], "NONOW"))
 
 	output = f"{msg.topic}:   {msg.payload.decode('utf-8')}"
 	print(output)
@@ -92,7 +89,7 @@ while True:
 		client.connect(BROKER, 1883, 60)
 		time.sleep(2)
 
-		client.subscribe("Main/Status/")
+		client.subscribe("Main/Status/#")
 		try:
 
 			while True:
@@ -123,11 +120,14 @@ while True:
 				print(statuslist)
 				for status in statuslist:
 					if status[1] == "NONOW":
-						send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[1], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["SUBJECT"])
+						send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[0], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"]
+						[f"{status[0]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["SUBJECT"])
 						try:
-							send_blocdata(data[f"Bloc{currenttimebloc + 1}"]["KIND"], status[1], data[f"Bloc{currenttimebloc + 1}"]["TIME"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[1]}"]["TEACHER"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[1]}"]["CLASS"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[1]}"]["SUBJECT"])
+							send_blocdata(data[f"Bloc{currenttimebloc + 1}"]["KIND"], status[0], data[f"Bloc{currenttimebloc + 1}"]["TIME"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[0]}"]["TEACHER"], data[f"Bloc{currenttimebloc + 1}"]
+							["ROOMGRID"][f"{status[0]}"]["CLASS"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[0]}"]["SUBJECT"])
 						except ValueError:
-							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[1], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["SUBJECT"])
+							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[0], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"]
+							[f"{status[0]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["SUBJECT"])
 				statuslist = []
 				client.loop()
 

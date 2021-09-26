@@ -81,7 +81,6 @@ class ddispCatastrophicException(ddispException):
 
 # function that complains to the controller if there is no now, but an after
 def status_nonow():
-	print("YOU DO THIS???")
 	client.publish(f"Main/Status/{ROOM}", "NONOW", retain=False)
 	client.loop()
 
@@ -216,13 +215,11 @@ if __name__ == "__main__":
 				# if there is a bloc happening next, but no one happening now; set a nonow_flag
 				if after and not now:
 					nonow_flag = True
-				print("1" + str(nonow_flag))
 
 				while nonow_flag:
 					status_nonow()
 					client.loop(timeout=10)
-					time.sleep(10)
-					print("2" + str(nonow_flag))
+					time.sleep(2)
 					if after and not now:
 						nonow_flag = True
 					else:
