@@ -37,9 +37,10 @@ client.connect("192.168.178.45", 1883, 60)
 # manual interface.
 
 client.loop_start()
-client.subscribe("News/")
-client.subscribe("Main/Data/A207")
-client.subscribe("Main/Special/A207")
+client.subscribe("News/#")
+client.subscribe("Main/Data/#")
+client.subscribe("Main/Special/#")
+client.subscribe("Main/Status/#")
 client.loop_stop()
 
 while True:

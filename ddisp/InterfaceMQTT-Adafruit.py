@@ -46,15 +46,17 @@ def getmac():
 # definitions
 MAC = getmac()
 ROOM = "A207"  # different for all clients
-BROKER = "192.168.178.45"  # needs to be defined for all clients
+BROKER = "192.168.178.45"  # needs to be defined, depends on situation of implementation
 WAITTIME = 3
 connection_flag = False  # flag regarding the client connection, used for connection error handling
+nonow_flag = False
 specials = []
 cmdqueue = []
 now = None
 after = None
 
 
+# exceptions
 class ddispException(Exception):
 	def __init__(self, *args):
 		if args:
@@ -75,6 +77,12 @@ class ddispCatastrophicException(ddispException):
 			return f"Catastrophic Error: {self.message}"
 		else:
 			return "An unknown catastrophic exception has occured."
+
+
+# function that complains to the controller if there is no now, but an after
+def status_nonow():
+	client.publish(f"Main/Status/{ROOM}", "NONOW", retain=False)
+	client.loop()
 
 
 # Callback functions
@@ -99,6 +107,7 @@ def on_disconnect(client, userdata, rc):
 def on_message(client, userdata, message):
 	# TODO MAYBE add standart specials
 	# TODO deal with bad messages
+
 	"""
 			incoming messages can be one of three types
 
@@ -114,6 +123,7 @@ def on_message(client, userdata, message):
 			Cancel messages consist solely out of a number
 			When a cancel message arrives, all Specials with that id get removed from specials[]
 	"""
+
 	if message.topic.split("/")[1] == "Data":
 		blocinfo = ast.literal_eval(message.payload.decode('utf-8'))
 		global after, now
@@ -143,7 +153,7 @@ class Bloc:
 		self.room = room
 		self.bloctime = bloctime
 
-		if subject == "BREAK":
+		if teacher == "PAUSE":
 			self.recess = True
 		else:
 			self.recess = False
@@ -201,6 +211,20 @@ if __name__ == "__main__":
 		try:
 			while True:
 				client.loop(timeout=2)  # checks for new messages
+
+				# if there is a bloc happening next, but no one happening now; set a nonow_flag
+				if after and not now:
+					nonow_flag = True
+
+				while nonow_flag:
+					status_nonow()
+					client.loop(timeout=10)
+					time.sleep(2)
+					if after and not now:
+						nonow_flag = True
+					else:
+						nonow_flag = False
+
 				# the following regulates with things are printed (displayed)
 				specials.sort(key=lambda special: special.priority),  # the list of all special messages gets sorted by priority
 				if specials:
@@ -231,8 +255,7 @@ if __name__ == "__main__":
 						time.sleep(WAITTIME)
 						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room)
 						time.sleep(WAITTIME)
-		# TODO status
-		# return Status
+			# return Status
 
 		except ddispException:
 			tries = 0
