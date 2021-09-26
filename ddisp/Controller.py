@@ -23,6 +23,7 @@ BROKER = "192.168.178.45"
 CLIENTID = "ddisp_Controller"
 TIMES = []
 
+statuslist = []
 currenttimebloc = None
 newcurrenttimebloc = None
 
@@ -38,6 +39,10 @@ def on_connect(self, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(self, userdata, msg):
+
+	# adds a nonow status to the list of status reports
+	if msg.topic.split("/")[1]:
+		statuslist.append((msg.topic.split("/")[0], "NONOW"))
 	output = f"{msg.topic}:   {msg.payload.decode('utf-8')}"
 	print(output)
 
@@ -83,6 +88,8 @@ while True:
 
 		client.connect(BROKER, 1883, 60)
 		time.sleep(2)
+
+		client.subscribe("Main/Status/")
 		try:
 
 			while True:
@@ -103,12 +110,21 @@ while True:
 						for room in data[f"Bloc{currenttimebloc}"]["ROOMGRID"]:
 							# TODO find way to send first one twice, perhaps via on message and status reports
 							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["SUBJECT"])
-							# send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["SUBJECT"])  # sends data containing (Kind, Room, Timebloc, Teacher, Class, Subject)
 					# TODO fix recess problems
 					else:
 						for room in data[f"Bloc{currenttimebloc}"]["ROOMGRID"]:
 							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"])
 
+				# checks every status in the statuslist, clears it at the end of the cycle
+				for status in statuslist:
+					if status[1] == "NONOW":
+						send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[1], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["SUBJECT"])
+						try:
+							send_blocdata(data[f"Bloc{currenttimebloc + 1}"]["KIND"], status[1], data[f"Bloc{currenttimebloc + 1}"]["TIME"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[1]}"]["TEACHER"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[1]}"]["CLASS"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[1]}"]["SUBJECT"])
+						except ValueError:
+							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[1], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[1]}"]["SUBJECT"])
+				statuslist = []
+				client.loop()
 
 		except KeyboardInterrupt:
 			# open menu
