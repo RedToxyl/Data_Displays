@@ -219,6 +219,7 @@ if __name__ == "__main__":
 				while nonow_flag:
 					status_nonow()
 					client.loop(timeout=10)
+					time.sleep(10)
 					print("2" + str(nonow_flag))
 					if after and not now:
 						nonow_flag = True
