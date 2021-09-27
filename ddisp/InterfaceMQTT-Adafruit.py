@@ -147,7 +147,7 @@ def on_message(client, userdata, message):
 # dataclass for the bloc
 
 class Bloc:
-	def __init__(self, teacher=None, subject=None, clss=None, room=ROOM, bloctime=None):
+	def __init__(self, teacher="", subject="", clss="", room=ROOM, bloctime=None):
 		self.teacher = teacher
 		self.subject = subject
 		self.clss = clss
@@ -212,19 +212,6 @@ if __name__ == "__main__":
 		try:
 			while True:
 				client.loop(timeout=2)  # checks for new messages
-
-				# if there is a bloc happening next, but no one happening now; set a nonow_flag
-				"""if after and not now:
-					nonow_flag = True
-
-				while nonow_flag:
-					status_nonow()
-					client.loop(timeout=10)
-					time.sleep(2)
-					if after and not now:
-						nonow_flag = True
-					else:
-						nonow_flag = False"""
 
 				# the following regulates with things are printed (displayed)
 				specials.sort(key=lambda special: special.priority),  # the list of all special messages gets sorted by priority

@@ -118,7 +118,7 @@ while True:
 							for room in data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"]:
 								send_blocdata(data[f"Bloc{currenttimebloc + 1}"]["KIND"], room, data[f"Bloc{currenttimebloc + 1}"]["TIME"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{room}"]["TEACHER"], data[f"Bloc{currenttimebloc + 1}"]
 								["ROOMGRID"][f"{room}"]["CLASS"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{room}"]["SUBJECT"])
-						# TODO fix recess problems
+
 						else:
 							for room in data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"]:
 								send_blocdata(data[f"Bloc{currenttimebloc + 1}"]["KIND"], room, data[f"Bloc{currenttimebloc + 1}"]["TIME"])
