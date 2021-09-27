@@ -80,6 +80,7 @@ class ddispCatastrophicException(ddispException):
 
 
 # function that complains to the controller if there is no now, but an after
+# defunct
 def status_nonow():
 	client.publish(f"Main/Status/{ROOM}", "NONOW", retain=False)
 	client.loop()
@@ -213,7 +214,7 @@ if __name__ == "__main__":
 				client.loop(timeout=2)  # checks for new messages
 
 				# if there is a bloc happening next, but no one happening now; set a nonow_flag
-				if after and not now:
+				"""if after and not now:
 					nonow_flag = True
 
 				while nonow_flag:
@@ -223,7 +224,7 @@ if __name__ == "__main__":
 					if after and not now:
 						nonow_flag = True
 					else:
-						nonow_flag = False
+						nonow_flag = False"""
 
 				# the following regulates with things are printed (displayed)
 				specials.sort(key=lambda special: special.priority),  # the list of all special messages gets sorted by priority

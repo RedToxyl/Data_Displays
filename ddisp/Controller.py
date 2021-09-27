@@ -101,33 +101,30 @@ while True:
 				if newcurrenttimebloc != currenttimebloc:
 					currenttimebloc = newcurrenttimebloc
 
-					# if not a break, send detailed data
+					# if not recess but lesson, send detailed blocdata
 					if data[f"Bloc{currenttimebloc}"]["KIND"] == "L":
+						# for every room, send data
 						for room in data[f"Bloc{currenttimebloc}"]["ROOMGRID"]:
-							# TODO find way to send first one twice, perhaps via on message and status reports
-							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["SUBJECT"])
+							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]
+							["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["SUBJECT"])
 					# TODO fix recess problems
 					else:
 						for room in data[f"Bloc{currenttimebloc}"]["ROOMGRID"]:
 							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"])
 
-				# the status-handling
-				# checks for statuses in the statuslist
+					# do the same thing for the next bloc
+					try:
+						if data[f"Bloc{currenttimebloc + 1}"]["KIND"] == "L":
+							for room in data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"]:
+								send_blocdata(data[f"Bloc{currenttimebloc + 1}"]["KIND"], room, data[f"Bloc{currenttimebloc + 1}"]["TIME"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{room}"]["TEACHER"], data[f"Bloc{currenttimebloc + 1}"]
+								["ROOMGRID"][f"{room}"]["CLASS"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{room}"]["SUBJECT"])
+						# TODO fix recess problems
+						else:
+							for room in data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"]:
+								send_blocdata(data[f"Bloc{currenttimebloc + 1}"]["KIND"], room, data[f"Bloc{currenttimebloc + 1}"]["TIME"])
+					except ValueError:
+						pass
 
-				# in case of NONOW, send the current and the next info to the raspi in question
-				for status in statuslist:
-					if status[1] == "NONOW":
-						send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[0], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"]
-						[f"{status[0]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["SUBJECT"])
-						try:
-							send_blocdata(data[f"Bloc{currenttimebloc + 1}"]["KIND"], status[0], data[f"Bloc{currenttimebloc + 1}"]["TIME"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[0]}"]["TEACHER"], data[f"Bloc{currenttimebloc + 1}"]
-							["ROOMGRID"][f"{status[0]}"]["CLASS"], data[f"Bloc{currenttimebloc + 1}"]["ROOMGRID"][f"{status[0]}"]["SUBJECT"])
-						except ValueError:
-							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], status[0], data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"]
-							[f"{status[0]}"]["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{status[0]}"]["SUBJECT"])
-
-				# reset statuslist after handling
-				statuslist = []
 				client.loop()
 
 		except KeyboardInterrupt:
