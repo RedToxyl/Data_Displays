@@ -85,7 +85,6 @@ def status_nonow():
 	client.publish(f"Main/Status/{ROOM}", "NONOW", retain=False)
 	client.loop()
 
-
 # Callback functions
 
 def on_connect(client, userdata, flags, rc, properties=None):
@@ -167,7 +166,7 @@ class Bloc:
 
 class Special:
 	def __init__(self, number, text, img, priority=1):
-		self.number = int(number)
+		self.number = number
 		self.text = text
 		self.img = img
 		self.priority = int(priority)
@@ -243,7 +242,7 @@ if __name__ == "__main__":
 						time.sleep(WAITTIME)
 						ddisp_draw.show_bloc(after.clss, after.subject, after.teacher, after.bloctime, after.room)
 						time.sleep(WAITTIME)
-			# return Status
+		# return Status
 
 		except ddispException:
 			tries = 0

@@ -28,6 +28,48 @@ currenttimebloc = None
 newcurrenttimebloc = None
 
 
+# menu function and functions for menu use
+def menu():
+	command = ""
+	while command not in ["q", "s", "e", "c"]:
+		command = input("This is the menu. What do you wish to do?\n(q)uit the program, (s)end a special message, (e)nd a special message, or (c)ontinue?    ")
+
+	if command == "q":
+		c_quit()
+	elif command == "s":
+		c_send_special()
+	elif command == "e":
+		c_end_special()
+
+
+def c_quit():
+	quit()
+
+
+# TODO implement special handling in Controller
+def c_send_special():
+	# gets the rooms this special should be send to
+	special_rooms = []
+	wanted = input("Enter desired special rooms 'A204,A207,C5,C8' or type 'ALL':    ")
+	if wanted == "ALL":
+		special_rooms = ["ALL"]
+	else:
+		for wr in wanted.split(","):
+			special_rooms.append(wr)
+
+	# gets message priority
+	priority = int(input("Please choose a priority, 0>1>2:    "))
+
+	# gets content
+	# TODO set max char limit (also do that in ddisp_draw)
+	content = input("What do you want the message to say?:    ")
+
+
+
+def c_end_special():
+	pass
+
+
 # TODO define Callbacks
 def on_connect(self, userdata, flags, rc):
 	print("Connected with result code " + str(rc))
@@ -42,6 +84,7 @@ def on_message(self, userdata, msg):
 	# adds a nonow status to the list of status reports
 	if msg.topic.split("/")[1] == "Status":
 		statuslist.append((msg.topic.split("/")[2], "NONOW"))
+
 
 def on_disconnect(self, userdata, rc):
 	if rc == 0:
@@ -129,8 +172,7 @@ while True:
 
 		except KeyboardInterrupt:
 			# open menu
-			if input("	Quit? (q)") == "q":
-				quit()
+			menu()
 	# TODO only except ddisp exception
 	except IndentationError:
 		# try to reconnect
