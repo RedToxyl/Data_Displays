@@ -65,7 +65,6 @@ def c_send_special():
 	content = input("What do you want the message to say?:    ")
 
 
-
 def c_end_special():
 	pass
 
@@ -120,6 +119,7 @@ for bloc in data:
 while True:
 	try:
 		# TODO connection
+		# TODO stop this from happening every time I open the menu
 		client = mqtt.Client(client_id=CLIENTID, clean_session=False)
 		client.on_connect = on_connect
 		client.on_message = on_message
