@@ -44,7 +44,11 @@ def menu():
 	elif command == "s":
 		c_send_special()
 	elif command == "e":
-		c_end_special()
+		try:
+			doomed_specialint = (input("Which special do you want to end?:    "))
+			c_end_special(doomed_specialint)
+		except TypeError:
+			print("This is not a valid id.")
 
 
 def c_quit():
@@ -89,19 +93,21 @@ def c_send_special():
 
 	specials.append(number)
 
-	message = f'"NUMBER": "{number}", "PRIORITY": "{priority}", "TEXT": "{content}", "IMAGE": "None"'
+	message = {"NUMBER": f"{number}", "PRIORITY": f"{priority}", "TEXT": f"{content}", "IMAGE": "None"}
+	message = f"{message}"
+
 	if special_rooms == "ALL":
-		client.publish("Main/Special/#", "{" + message + "}", 1, retain=False)
+		client.publish("Main/Special/", message, 1, retain=False)
 	else:
 		for rm in special_rooms:
-			client.publish(f"Main/Special/{rm}", "{" + message + "}", 1, retain=False)
+			client.publish(f"Main/Special/{rm}", message, 1, retain=False)
 
 
 def c_end_special(number):
 
 	# removes this from specials
 	for spc in specials:
-		if spc[0] == number:
+		if spc == number:
 			specials.remove(spc)
 			break
 	# and from timed specials
@@ -110,7 +116,7 @@ def c_end_special(number):
 			timed_specials.remove(spc)
 			break
 
-	client.publish("Main/Cancel/+", f"{number}", 1, retain=False)
+	client.publish("Main/Cancel/", f"{number}", 1, retain=False)
 
 
 # TODO define Callbacks

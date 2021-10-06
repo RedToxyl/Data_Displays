@@ -140,6 +140,8 @@ def on_message(client, userdata, message):
 
 	elif message.topic.split("/")[1] == "Cancel":
 		cancelled = int(message.payload.decode('utf-8'))
+		print("AII")
+		print(cancelled)
 		for special in specials:
 			if special.number == cancelled:
 				specials.remove(special)
@@ -235,7 +237,7 @@ if __name__ == "__main__":
 						time.sleep(WAITTIME)
 					else:  # only a special exists
 						ddisp_draw.show_special(specials[0].text)
-						time.sleep()
+						time.sleep(WAITTIME)
 
 				# none of this matters if there are no specials, in that case now and next will just rotate normally
 				else:

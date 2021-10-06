@@ -41,6 +41,7 @@ client.subscribe("News/#")
 client.subscribe("Main/Data/#")
 client.subscribe("Main/Special/#")
 client.subscribe("Main/Status/#")
+client.subscribe("Main/Cancel/#")
 client.loop_stop()
 
 while True:
