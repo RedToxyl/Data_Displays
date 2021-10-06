@@ -32,6 +32,8 @@ timed_specials = []
 toberemoved = []  # this only exist to now remove elements of a list that is beeing iterated through
 specialid = 1
 
+# TODO add graceful exit after the day is over
+
 
 # menu function and functions for menu use
 def menu():
@@ -116,7 +118,7 @@ def c_end_special(number):
 			timed_specials.remove(spc)
 			break
 
-	client.publish("Main/Cancel/", f"{number}", 1, retain=False)
+	client.publish("Main/Cancel/", f"'{number}'", 1, retain=False)
 
 
 # TODO define Callbacks

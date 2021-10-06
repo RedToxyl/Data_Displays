@@ -201,7 +201,8 @@ if __name__ == "__main__":
 
 	# TODO check for errors in subscription
 	# the client subscribes to commands, datasharing and the systemwide broadcasts
-	client.subscribe(f"Main/Cancel/{ROOM}")
+	# client.subscribe(f"Main/Cancel/{ROOM}")
+	client.subscribe("Main/Cancel/")
 	client.subscribe(f"Main/Special/{ROOM}")
 	client.subscribe(f"Main/Data/{ROOM}")
 
