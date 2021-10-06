@@ -71,6 +71,7 @@ class ddispException(Exception):
 			return "An unknown ddispException has occured."
 
 
+# this is not really implemented as of yet
 class ddispCatastrophicException(ddispException):
 	def __repr__(self):
 		if self.message:
@@ -84,6 +85,7 @@ class ddispCatastrophicException(ddispException):
 def status_nonow():
 	client.publish(f"Main/Status/{ROOM}", "NONOW", retain=False)
 	client.loop()
+
 
 # Callback functions
 
