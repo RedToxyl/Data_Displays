@@ -140,8 +140,6 @@ def on_message(client, userdata, message):
 
 	elif message.topic.split("/")[1] == "Cancel":
 		cancelled = int(message.payload.decode('utf-8'))
-		print("AII")
-		print(cancelled)
 		for special in specials:
 			if special.number == cancelled:
 				specials.remove(special)
@@ -215,6 +213,9 @@ if __name__ == "__main__":
 		# other
 		try:
 			while True:
+				print(specials)
+				for x in specials:
+					print(x.number)
 				client.loop(timeout=2)  # checks for new messages
 
 				# the following regulates with things are printed (displayed)

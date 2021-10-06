@@ -118,7 +118,7 @@ def c_end_special(number):
 			timed_specials.remove(spc)
 			break
 
-	client.publish("Main/Cancel/", f"'{number}'", 1, retain=False)
+	client.publish("Main/Cancel/", f"{number}", 1, retain=False)
 
 
 # TODO define Callbacks
