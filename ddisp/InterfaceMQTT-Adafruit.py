@@ -168,7 +168,7 @@ class Bloc:
 
 class Special:
 	def __init__(self, number, text, img, priority=1):
-		self.number = number
+		self.number = int(number)
 		self.text = text
 		self.img = img
 		self.priority = int(priority)
@@ -213,9 +213,6 @@ if __name__ == "__main__":
 		# other
 		try:
 			while True:
-				print(specials)
-				for x in specials:
-					print(x.number)
 				client.loop(timeout=2)  # checks for new messages
 
 				# the following regulates with things are printed (displayed)
