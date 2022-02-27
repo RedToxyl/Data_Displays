@@ -113,7 +113,7 @@ def on_message(client, userdata, message):
 	"""
 			incoming messages can be one of three types
 
-			Data is information about a standart timebloc and contains teacher, subject, class and it's time
+			Data is information about a standart timebloc and contains teacher, subject, class and its time
 			In order to allow for an easy display of the current and next bloc, ±now± will get
 			automatically replaced by next and ±next± by the incoming message
 

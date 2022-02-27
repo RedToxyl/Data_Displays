@@ -32,6 +32,8 @@ timed_specials = []
 toberemoved = []  # this only exist to now remove elements of a list that is beeing iterated through
 specialid = 1
 
+ALLROOMS = ["A207"]  # a list of all rooms with raspi
+
 # TODO add graceful exit after the day is over
 
 
@@ -57,7 +59,6 @@ def c_quit():
 	quit()
 
 
-# TODO implement special handling in Controller
 def c_send_special():
 	# gets the rooms this special should be send to
 	special_rooms = []
@@ -91,7 +92,8 @@ def c_send_special():
 		# TODO also dont add specials after 11pm
 		timed_specials.append((number, input("Enter the time you wish (hh:mm):    ")))
 	elif dm == "s":
-		timed_specials.append((number, int(time.strftime("%H", time.localtime())) + 1))
+		# timed_specials.append((number, (int(time.strftime("%H", time.localtime())) + 1), int(time.strftime("%M", time.localtime()))))
+		timed_specials.append((number, (int(time.strftime("%H", time.localtime()))), (int(time.strftime("%M", time.localtime())) + 1)))
 
 	specials.append(number)
 
@@ -99,7 +101,8 @@ def c_send_special():
 	message = f"{message}"
 
 	if special_rooms == "ALL":
-		client.publish("Main/Special/", message, 1, retain=False)
+		for rm in ALLROOMS:
+			client.publish(f"Main/Special/{rm}", message, 1, retain=False)
 	else:
 		for rm in special_rooms:
 			client.publish(f"Main/Special/{rm}", message, 1, retain=False)
@@ -190,14 +193,14 @@ while True:
 
 				# checks whether there are specials that have ended
 				for spec in timed_specials:
-					if hour > int(spec[1].split(":")[0]):
+					if hour > int(spec[1]):
 						toberemoved.append(spec[0])
-					elif hour == int(spec[1].split(":")[0]) and minute > int(spec[1].split(":")[1]):
+					elif hour == int(spec[1]) and minute > int(spec[2]):
 						toberemoved.append(spec[0])
 
 				# cancels ended timed specials
 				for spec in toberemoved:
-					c_end_special(spec[0])
+					c_end_special(spec)
 
 				toberemoved = []
 
@@ -218,7 +221,6 @@ while True:
 						for room in data[f"Bloc{currenttimebloc}"]["ROOMGRID"]:
 							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["TEACHER"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]
 							["CLASS"], data[f"Bloc{currenttimebloc}"]["ROOMGRID"][f"{room}"]["SUBJECT"])
-					# TODO fix recess problems
 					else:
 						for room in data[f"Bloc{currenttimebloc}"]["ROOMGRID"]:
 							send_blocdata(data[f"Bloc{currenttimebloc}"]["KIND"], room, data[f"Bloc{currenttimebloc}"]["TIME"])
